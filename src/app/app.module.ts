@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 import { MainModule } from "./modules/main.module";
 import { AppRoutingModule } from "./modules/app-routing.module";
@@ -19,7 +20,13 @@ import { PokemonService } from "./services/pokemon.service";
         HeaderComponent,
         FooterComponent
     ],
-    imports: [BrowserModule, AppRoutingModule, HttpClientModule, MainModule],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        MainModule,
+        FontAwesomeModule
+    ],
     providers: [PokemonService],
     bootstrap: [AppComponent]
 })

@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+
 import { BattleModule } from "./battle.module";
 
 import { MainComponent } from "../pages/Main/main.component";
