@@ -9,13 +9,15 @@ import { PokemonService } from "./services/pokemon.service";
 import { MainComponent } from "./pages/Main/main.component";
 import { PokemonComponent } from "./pages/Pokemon/pokemon.component";
 import { BattleComponent } from "./pages/Battle/battle.component";
+import { NotFoundComponent } from "./pages/NotFound/not-found.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         MainComponent,
         PokemonComponent,
-        BattleComponent
+        BattleComponent,
+        NotFoundComponent
     ],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule],
     providers: [PokemonService],
