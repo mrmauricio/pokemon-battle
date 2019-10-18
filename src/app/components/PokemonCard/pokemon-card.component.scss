@@ -1,0 +1,34 @@
+a {
+    text-decoration: none;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h2 {
+        width: 100%;
+        padding: 1rem;
+        background: #ff0000;
+        color: #fff;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        font-size: 1.6rem;
+    }
+
+    img {
+        width: 10rem;
+        height: 10rem;
+    }
+
+    div {
+        margin: 1rem;
+
+        span {
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+    }
+}

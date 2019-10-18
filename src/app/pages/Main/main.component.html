@@ -1,1 +1,21 @@
-<p>main works!</p>
+<main>
+    <section>
+        <h1>Choose your Pokémon</h1>
+        <div class="main-loading" *ngIf="isLoading && !error">
+            <fa-icon [icon]="faFan" [spin]="true"></fa-icon>
+        </div>
+        <div class="main-article" *ngIf="!isLoading && !error">
+            <app-pokemon-card
+                [pokemon]="pokemon"
+                *ngFor="let pokemon of pokemonList"
+            ></app-pokemon-card>
+        </div>
+        <div class="main-error" *ngIf="error">
+            <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+            <span>
+                <a href="https://pokeapi.co/">PokéAPI</a> seems to be offline.
+                Try again later</span
+            >
+        </div>
+    </section>
+</main>

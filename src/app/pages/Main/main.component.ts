@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
+import { faFan, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 import { PokemonService } from "../../services/pokemon.service";
 
 import { Pokemon } from "../../classes/pokemon";
+import { pokemonIdList } from "../../utils/pokemonIdList";
 
 @Component({
     selector: "app-main",
@@ -10,25 +12,35 @@ import { Pokemon } from "../../classes/pokemon";
     styleUrls: ["./main.component.scss"]
 })
 export class MainComponent implements OnInit {
-    pokemon: Pokemon[] = [];
-    availablePokemon: number[] = [6, 9];
+    pokemonList: Pokemon[] = [];
+    pokemonIdList = pokemonIdList;
 
     isLoading: boolean = false;
     error: boolean = false;
 
+    faFan = faFan;
+    faExclamationTriangle = faExclamationTriangle
+
     constructor(private pokemonService: PokemonService) {}
 
     ngOnInit() {
-        this.loadPokemon(this.availablePokemon);
+        this.fetchPokemon(this.pokemonIdList);
     }
 
-    async loadPokemon(availablePokemon: number[]): Promise<void> {
+    async fetchPokemon(pokemonIdList: number[]): Promise<void> {
         this.isLoading = true;
 
-        const data = await this.pokemonService.getPokemon(availablePokemon);
+        try {
+            let data = await this.pokemonService.getPokemon(pokemonIdList);
 
-        this.pokemon = data;
-
-        console.log(this.pokemon);
+            this.isLoading = false;
+            this.pokemonList = data;
+            this.error = false;
+            console.log(this.pokemonList);
+        } catch (e) {
+            console.log(e);
+            this.isLoading = false;
+            this.error = true;
+        }
     }
 }

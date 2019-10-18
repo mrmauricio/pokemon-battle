@@ -22,9 +22,9 @@ export class PokemonService {
 
                 const pokemon: Pokemon = {
                     id: data.id,
-                    sprite: data.sprites.back_default,
+                    sprite: data.sprites.front_default,
                     name: data.name,
-                    types: data.types
+                    types: data.types.reverse()
                 };
                 return pokemon;
             })

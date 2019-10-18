@@ -1,0 +1,75 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    section {
+        background: #fff;
+        border-radius: 8px;
+        width: 90%;
+        padding: 2rem;
+
+        h1 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin: 2rem 1rem 4rem;
+        }
+    }
+
+    .main-article {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        // article
+        app-pokemon-card {
+            margin: 1rem;
+            width: 15rem;
+            height: 17rem;
+            flex-grow: 1;
+            box-shadow: 0 2px 8px rgba(255, 0, 0, 0.2);
+            transition: 0.2s transform;
+
+            &:hover {
+                transform: translateY(-3px);
+                background-color: rgba(255, 0, 0, 0.1);
+            }
+        }
+    }
+
+    .main-loading,
+    .main-error {
+        height: 20rem;
+        margin-bottom: 3rem;
+        font-size: 3rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        fa-icon {
+            margin-left: 1rem;
+        }
+
+        span {
+            font-size: 1.8rem;
+            margin-left: 2rem;
+
+            a {
+                color: #ff0000;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .main-article {
+        article {
+            max-width: 16.5rem;
+        }
+
+        app-pokemon-card {
+            max-width: 16.5rem;
+        }
+    }
+}
