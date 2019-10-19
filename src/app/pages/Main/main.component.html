@@ -1,16 +1,26 @@
 <main>
-    <section>
-        <h1>Choose your Pokémon</h1>
-        <div class="main-loading" *ngIf="isLoading && !error">
+    <section *ngFor="let section of sections">
+        <h1>
+            <fa-icon [icon]="section.titleIcon"></fa-icon>{{ section.title }}
+        </h1>
+        <div class="main-loading" *ngIf="section.isLoading && !section.error">
             <fa-icon [icon]="faFan" [spin]="true"></fa-icon>
         </div>
-        <div class="main-article" *ngIf="!isLoading && !error">
+        <div class="main-article" *ngIf="!section.isLoading && !section.error">
             <app-pokemon-card
                 [pokemon]="pokemon"
-                *ngFor="let pokemon of pokemonList"
+                *ngFor="let pokemon of section.pokemonList"
             ></app-pokemon-card>
+            <div *ngIf="section.buttons.length > 0">
+                <button
+                    (click)="handlePokedexLoad(section.id)"
+                    *ngFor="let button of section.buttons"
+                >
+                    {{ button.name }}
+                </button>
+            </div>
         </div>
-        <div class="main-error" *ngIf="error">
+        <div class="main-error" *ngIf="section.error">
             <fa-icon [icon]="faExclamationTriangle"></fa-icon>
             <span>
                 <a href="https://pokeapi.co/">PokéAPI</a> seems to be offline.

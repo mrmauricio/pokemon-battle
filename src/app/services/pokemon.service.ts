@@ -11,14 +11,14 @@ export class PokemonService {
 
     private baseUrl: string = "https://pokeapi.co/api/v2/pokemon";
 
-    async getPokemon(idArray: number[]) {
+    async getPokemonByIdList(idArray: number[]) {
         const pokeArray: Promise<Pokemon[]> = Promise.all(
             idArray.map(async (id) => {
                 const data: any = await this.http
                     .get(`${this.baseUrl}/${id}`)
                     .toPromise();
 
-                console.log(data);
+                //console.log(data);
 
                 const pokemon: Pokemon = {
                     id: data.id,

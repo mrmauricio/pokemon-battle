@@ -1,4 +1,4 @@
-export const pokemonIdList: number[] = [
+export const fightersIdList: number[] = [
     3,
     6,
     9,
