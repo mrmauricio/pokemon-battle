@@ -1,23 +1,45 @@
 <main>
     <section *ngFor="let section of sections">
         <h1>
-            <fa-icon [icon]="section.titleIcon"></fa-icon>{{ section.title }}
+            <fa-icon [icon]="section.title.icon"></fa-icon
+            >{{ section.title.name }}
         </h1>
-        <div class="main-loading" *ngIf="section.isLoading && !section.error">
+        <div
+            class="main-loading"
+            *ngIf="
+                section.isLoading &&
+                !section.error &&
+                !section.buttonList.isLoading
+            "
+        >
             <fa-icon [icon]="faFan" [spin]="true"></fa-icon>
         </div>
-        <div class="main-article" *ngIf="!section.isLoading && !section.error">
+        <div
+            class="main-article"
+            *ngIf="
+                (!section.isLoading && !section.error) ||
+                section.buttonList.isLoading
+            "
+        >
             <app-pokemon-card
                 [pokemon]="pokemon"
                 *ngFor="let pokemon of section.pokemonList"
             ></app-pokemon-card>
-            <div *ngIf="section.buttons.length > 0">
+            <div
+                *ngIf="
+                    section.buttonList.buttons.length > 0 &&
+                    !section.buttonList.isLoading
+                "
+            >
                 <button
                     (click)="handlePokedexLoad(section.id)"
-                    *ngFor="let button of section.buttons"
+                    *ngFor="let button of section.buttonList.buttons"
                 >
                     {{ button.name }}
                 </button>
+            </div>
+            <div class="main-loading" *ngIf="section.buttonList.isLoading">
+                <fa-icon [icon]="faFan" [spin]="true"></fa-icon>
             </div>
         </div>
         <div class="main-error" *ngIf="section.error">

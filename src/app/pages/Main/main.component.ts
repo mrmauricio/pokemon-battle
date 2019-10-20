@@ -24,22 +24,20 @@ export class MainComponent implements OnInit {
         {
             // first section: fighters
             id: 1,
-            title: "Choose your Fighter",
-            titleIcon: faBolt,
+            title: { name: "Choose your Fighter", icon: faBolt },
             pokemonList: [],
             isLoading: false,
             error: false,
-            buttons: []
+            buttonList: { buttons: [], isLoading: false }
         },
         {
             // second section: pokedex
             id: 2,
-            title: "Learn about other Pokémon",
-            titleIcon: faFileAlt,
+            title: { name: "Learn about other Pokémon", icon: faFileAlt },
             pokemonList: [],
             isLoading: false,
             error: false,
-            buttons: [{ name: "Load more" }]
+            buttonList: { buttons: [{ name: "Load more" }], isLoading: false }
         }
     ];
 
@@ -86,6 +84,10 @@ export class MainComponent implements OnInit {
     }
 
     async handlePokedexLoad(sectionId: number) {
+        let section = this.sections.find((section) => section.id === sectionId);
+
+        section.buttonList.isLoading = true;
+
         let lastPokemonId = this.pokedexList[this.pokedexList.length - 1];
 
         let newPokedexList: number[] = [...Array(12).keys()].map(
@@ -98,9 +100,9 @@ export class MainComponent implements OnInit {
             true
         );
 
-        let section = this.sections.find((section) => section.id === sectionId);
-
         this.pokedexList = this.pokedexList.concat(newPokedexList);
         section.pokemonList = section.pokemonList.concat(data);
+
+        section.buttonList.isLoading = false;
     }
 }
