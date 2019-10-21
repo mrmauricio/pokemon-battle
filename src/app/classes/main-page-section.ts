@@ -15,6 +15,13 @@ class Title {
 }
 
 class ButtonList {
-    buttons: Object[];
+    buttons: Button[];
     isLoading: boolean;
+}
+
+export class Button {
+    id: number;
+    name: string;
+    function: (sectionId: number) => void;
+    icon: Object;
 }

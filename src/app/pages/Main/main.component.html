@@ -22,8 +22,8 @@
             "
         >
             <app-pokemon-card
-                [pokemon]="pokemon"
                 *ngFor="let pokemon of section.pokemonList"
+                [pokemon]="pokemon"
             ></app-pokemon-card>
             <div
                 *ngIf="
@@ -32,10 +32,11 @@
                 "
             >
                 <button
-                    (click)="handlePokedexLoad(section.id)"
                     *ngFor="let button of section.buttonList.buttons"
+                    (click)="button.function(section.id)"
                 >
-                    {{ button.name }}
+                    <fa-icon [icon]="button.icon"></fa-icon>
+                    <span>{{ button.name }}</span>
                 </button>
             </div>
             <div class="main-loading" *ngIf="section.buttonList.isLoading">
