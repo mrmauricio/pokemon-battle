@@ -23,7 +23,7 @@ class Sprites {
     back_shiny: string;
 }
 
-class Move {
+export class Move {
     name: string;
     text: string;
     type: string;
@@ -39,5 +39,5 @@ export class Stat {
 
 export class MoveList {
     pokemonId: number;
-    movesIdList: number[];
+    movesId: number[];
 }

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { PokemonPreview, PokemonData, Stat } from "../classes/pokemon";
+import { PokemonPreview, PokemonData, Stat, Move } from "../classes/pokemon";
 
 @Injectable({
     providedIn: "root"
@@ -9,33 +9,64 @@ import { PokemonPreview, PokemonData, Stat } from "../classes/pokemon";
 export class PokemonService {
     constructor(private http: HttpClient) {}
 
-    private baseUrl: string = "https://pokeapi.co/api/v2/pokemon";
+    private baseUrl: string = "https://pokeapi.co/api/v2";
+
+    async getMoveByIdList(idArray: number[]) {
+        const moveArray = await Promise.all(
+            idArray.map(async (id) => await this.getMoveById(id))
+        );
+
+        return moveArray;
+    }
+
+    async getMoveById(id: number) {
+        const data: any = await this.http
+            .get(`${this.baseUrl}/move/${id}`)
+            .toPromise();
+
+        const text = data.flavor_text_entries.find(
+            (item) => item.language.name === "en"
+        );
+
+        const move: Move = {
+            name: data.name,
+            text: text.flavor_text,
+            type: data.type.name,
+            power: data.power
+        };
+
+        return move;
+    }
 
     async getPokemonByIdList(idArray: number[]) {
         const pokeArray = await Promise.all(
-            idArray.map(async (id) => await this.getPokemonById(id, true))
+            idArray.map(async (id) => await this.getPokemonPreviewById(id))
         );
 
         return pokeArray;
     }
 
-    async getPokemonById(id: number, onlyPreview: boolean) {
+    async getPokemonPreviewById(id: number) {
         const data: any = await this.http
-            .get(`${this.baseUrl}/${id}`)
+            .get(`${this.baseUrl}/pokemon/${id}`)
             .toPromise();
 
         //console.log(data);
 
-        if (onlyPreview) {
-            const pokemonPreview: PokemonPreview = {
-                id: data.id,
-                sprite: data.sprites.front_default,
-                name: data.name,
-                types: data.types.map((t) => t.type.name).reverse()
-            };
+        const pokemonPreview: PokemonPreview = {
+            id: data.id,
+            sprite: data.sprites.front_default,
+            name: data.name,
+            types: data.types.map((t) => t.type.name).reverse()
+        };
 
-            return pokemonPreview;
-        }
+        return pokemonPreview;
+    }
+
+    async getPokemonDataById(id: number) {
+        const data: any = await this.http
+            .get(`${this.baseUrl}/pokemon/${id}`)
+            .toPromise();
 
         // set pokemon stats
 
