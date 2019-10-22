@@ -3,9 +3,9 @@
         <h2>#{{ pokemon.id }} {{ pokemon.name | titlecase }}</h2>
         <img [src]="pokemon.sprite" [alt]="pokemon.name" />
         <div>
-            <span *ngFor="let pokemonType of pokemon.types; let i = index">
+            <span *ngFor="let type of pokemon.types; let i = index">
                 <span *ngIf="i === 1">/</span>
-                {{ pokemonType.type.name | uppercase }}
+                {{ type | uppercase }}
             </span>
         </div>
     </a>

@@ -1,9 +1,9 @@
-import { Pokemon } from "./pokemon";
+import { PokemonPreview, PokemonData } from "./pokemon";
 
 export class MainPageSection {
     id: number;
     title: Title;
-    pokemonList: Pokemon[];
+    pokemonList: (PokemonPreview | PokemonData)[];
     isLoading: boolean;
     error: boolean;
     buttonList: ButtonList;
