@@ -106,6 +106,8 @@ export class PokemonService {
             statArray = statArray.filter((stat) => stat !== prop);
         });
 
+        statArray = statArray.sort((a, b) => a.name.localeCompare(b.name));
+
         console.log(statArray);
 
         // set pokemon moves
@@ -121,7 +123,7 @@ export class PokemonService {
             name: data.name,
             types: data.types.map((t) => t.type.name).reverse(),
             abilities: data.abilities.map((a) => a.ability.name),
-            height: data.height,
+            height: data.height / 10,
             moves: [],
             stats: statArray
         };

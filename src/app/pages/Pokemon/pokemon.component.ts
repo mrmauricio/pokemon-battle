@@ -16,7 +16,10 @@ import { PokemonData } from "./../../classes/pokemon";
 export class PokemonComponent implements OnInit {
     id = Number(this.route.snapshot.paramMap.get("id"));
     pokemon: PokemonData;
+
     isFighter: boolean;
+    isLoading: boolean = true;
+    error: boolean = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -26,15 +29,32 @@ export class PokemonComponent implements OnInit {
     async ngOnInit() {
         this.checkFighterId();
 
-        this.pokemon = await this.pokemonService.getPokemonDataById(this.id);
+        this.getPokemonData(this.id);
+    }
 
-        let { movesId } = movesIdList.find(
-            (item) => item.pokemonId === this.id
-        );
+    async getPokemonData(id: number) {
+        this.isLoading = true;
 
-        this.pokemon.moves = await this.pokemonService.getMoveByIdList(movesId);
+        try {
+            this.pokemon = await this.pokemonService.getPokemonDataById(id);
 
-        console.log(this.pokemon);
+            let { movesId } = movesIdList.find(
+                (item) => item.pokemonId === this.id
+            );
+
+            this.pokemon.moves = await this.pokemonService.getMoveByIdList(
+                movesId
+            );
+
+            console.log(this.pokemon);
+
+            this.isLoading = false;
+            this.error = false;
+        } catch (e) {
+            console.log(e);
+            this.isLoading = false;
+            this.error = true;
+        }
     }
 
     checkFighterId() {

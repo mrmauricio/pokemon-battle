@@ -72,29 +72,9 @@ main {
                     }
                 }
             }
-        }
 
-        .main-loading,
-        .main-error {
-            height: 20rem;
-            margin-bottom: 3rem;
-            font-size: 3rem;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            fa-icon {
-                margin-left: 1rem;
-            }
-
-            span {
-                font-size: 1.8rem;
-                margin-left: 2rem;
-
-                a {
-                    color: #ff0000;
-                }
+            app-loading {
+                width: 100%;
             }
         }
     }

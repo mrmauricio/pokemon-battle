@@ -1,8 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import {
-    faFan,
-    faExclamationTriangle,
     faBolt,
     faGraduationCap,
     faQuestion,
@@ -77,9 +75,6 @@ export class MainComponent implements OnInit {
             }
         }
     ];
-
-    faFan = faFan;
-    faExclamationTriangle = faExclamationTriangle;
 
     constructor(
         private pokemonService: PokemonService,

@@ -1,1 +1,68 @@
-<p>pokemon works! {{ id }} {{ isFighter }}</p>
+<section *ngIf="pokemon">
+    <app-loading *ngIf="isLoading && !error"></app-loading>
+    <app-error *ngIf="error"></app-error>
+    <div *ngIf="!isLoading && !error">
+        <header>
+            <h1>#{{ pokemon.id }} {{ pokemon.name | uppercase }}</h1>
+        </header>
+        <div>
+            <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" />
+
+            <div>
+                <div>
+                    <ul>
+                        <li>National Nº:</li>
+                        <li>Type:</li>
+                        <li>Height:</li>
+                        <li>Ability:</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li>{{ pokemon.id }}</li>
+                        <li>
+                            <span *ngFor="let type of pokemon.types">
+                                {{ type | titlecase }}
+                            </span>
+                        </li>
+                        <li>{{ pokemon.height }} m</li>
+                        <li>
+                            <span *ngFor="let ability of pokemon.abilities">
+                                {{ ability | titlecase }}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <h2>Moves:</h2>
+                <ul>
+                    <li *ngFor="let move of pokemon.moves">
+                        <div>
+                            <span>{{ move.name | uppercase }}</span>
+                            <span><small>POWER:</small>{{ move.power }}</span>
+                            <span
+                                ><small>TYPE:</small
+                                >{{ move.type | titlecase }}</span
+                            >
+                        </div>
+                        <p>{{ move.text }}</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h2>Stats:</h2>
+                <ul>
+                    <li *ngFor="let stat of pokemon.stats">
+                        <span
+                            ><strong>{{ stat.name }}:</strong>
+                            {{ stat.power }}</span
+                        >
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

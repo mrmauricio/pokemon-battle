@@ -4,16 +4,14 @@
             <fa-icon [icon]="section.title.icon"></fa-icon
             >{{ section.title.name }}
         </h1>
-        <div
-            class="main-loading"
+        <app-loading
             *ngIf="
                 section.isLoading &&
                 !section.error &&
                 !section.buttonList.isLoading
             "
-        >
-            <fa-icon [icon]="faFan" [spin]="true"></fa-icon>
-        </div>
+        ></app-loading>
+        <app-error *ngIf="section.error"></app-error>
         <div
             class="main-article"
             *ngIf="
@@ -39,16 +37,7 @@
                     <span>{{ button.name }}</span>
                 </button>
             </div>
-            <div class="main-loading" *ngIf="section.buttonList.isLoading">
-                <fa-icon [icon]="faFan" [spin]="true"></fa-icon>
-            </div>
-        </div>
-        <div class="main-error" *ngIf="section.error">
-            <fa-icon [icon]="faExclamationTriangle"></fa-icon>
-            <span>
-                <a href="https://pokeapi.co/">PokéAPI</a> seems to be offline.
-                Try again later</span
-            >
+            <app-loading *ngIf="section.buttonList.isLoading"></app-loading>
         </div>
     </section>
 </main>
