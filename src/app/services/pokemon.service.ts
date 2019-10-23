@@ -118,7 +118,8 @@ export class PokemonService {
                 front_default: data.sprites.front_default,
                 back_default: data.sprites.back_default,
                 front_shiny: data.sprites.front_shiny,
-                back_shiny: data.sprites.back_shiny
+                back_shiny: data.sprites.back_shiny,
+                artwork: `https://img.pokemondb.net/artwork/large/${data.name}.jpg`
             },
             name: data.name,
             types: data.types.map((t) => t.type.name).reverse(),

@@ -1,67 +1,87 @@
-<section *ngIf="pokemon">
-    <app-loading *ngIf="isLoading && !error"></app-loading>
-    <app-error *ngIf="error"></app-error>
-    <div *ngIf="!isLoading && !error">
-        <header>
-            <h1>#{{ pokemon.id }} {{ pokemon.name | uppercase }}</h1>
-        </header>
-        <div>
-            <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" />
-
+<section>
+    <div>
+        <app-loading *ngIf="isLoading && !error"></app-loading>
+        <app-error *ngIf="error"></app-error>
+        <div class="pokemon-detail" *ngIf="!isLoading && !error">
+            <header>
+                <h1>#{{ pokemon.id }} {{ pokemon.name | uppercase }}</h1>
+            </header>
             <div>
-                <div>
-                    <ul>
-                        <li>National Nº:</li>
-                        <li>Type:</li>
-                        <li>Height:</li>
-                        <li>Ability:</li>
-                    </ul>
+                <div id="img-wrapper">
+                    <img [src]="pokemon.sprites.artwork" [alt]="pokemon.name" />
                 </div>
-                <div>
+
+                <div class="pokemon-info">
                     <ul>
-                        <li>{{ pokemon.id }}</li>
                         <li>
-                            <span *ngFor="let type of pokemon.types">
-                                {{ type | titlecase }}
+                            <strong>National Nº</strong>
+                            <span>{{ pokemon.id }}</span>
+                        </li>
+                        <li>
+                            <strong>Type</strong>
+                            <span>
+                                <span
+                                    *ngFor="
+                                        let type of pokemon.types;
+                                        let i = index
+                                    "
+                                >
+                                    <span *ngIf="i === 1">/</span>
+                                    {{ type | titlecase }}
+                                </span>
                             </span>
                         </li>
-                        <li>{{ pokemon.height }} m</li>
                         <li>
-                            <span *ngFor="let ability of pokemon.abilities">
-                                {{ ability | titlecase }}
+                            <strong>Height</strong>
+                            <span>{{ pokemon.height }} m</span>
+                        </li>
+                        <li>
+                            <strong>Ability</strong>
+                            <span>
+                                <span
+                                    *ngFor="
+                                        let ability of pokemon.abilities;
+                                        let i = index
+                                    "
+                                >
+                                    {{ ability | titlecase }}
+                                    <span *ngIf="i === 0"> / <br /></span>
+                                </span>
                             </span>
                         </li>
                     </ul>
                 </div>
-            </div>
 
-            <div>
-                <h2>Moves:</h2>
-                <ul>
-                    <li *ngFor="let move of pokemon.moves">
-                        <div>
-                            <span>{{ move.name | uppercase }}</span>
-                            <span><small>POWER:</small>{{ move.power }}</span>
+                <div class="pokemon-moves">
+                    <h2>Moves:</h2>
+                    <ul>
+                        <li *ngFor="let move of pokemon.moves">
+                            <div>
+                                <span>{{ move.name | uppercase }}</span>
+                                <span
+                                    ><small>POWER:</small>{{ move.power }}</span
+                                >
+                                <span
+                                    ><small>TYPE:</small
+                                    >{{ move.type | titlecase }}</span
+                                >
+                            </div>
+                            <p>{{ move.text }}</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pokemon-stats">
+                    <h2>Stats:</h2>
+                    <ul>
+                        <li *ngFor="let stat of pokemon.stats">
                             <span
-                                ><small>TYPE:</small
-                                >{{ move.type | titlecase }}</span
+                                ><strong>{{ stat.name }}:</strong>
+                                {{ stat.power }}</span
                             >
-                        </div>
-                        <p>{{ move.text }}</p>
-                    </li>
-                </ul>
-            </div>
-
-            <div>
-                <h2>Stats:</h2>
-                <ul>
-                    <li *ngFor="let stat of pokemon.stats">
-                        <span
-                            ><strong>{{ stat.name }}:</strong>
-                            {{ stat.power }}</span
-                        >
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

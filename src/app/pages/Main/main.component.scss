@@ -21,6 +21,10 @@ main {
             }
         }
 
+        .main-loading {
+            margin-bottom: 3rem;
+        }
+
         .main-article {
             display: flex;
             flex-wrap: wrap;
@@ -78,10 +82,8 @@ main {
             }
         }
     }
-}
 
-@media (min-width: 768px) {
-    .main-article {
+    @media (min-width: 768px) {
         app-pokemon-card {
             max-width: 16.5rem;
         }

@@ -21,6 +21,7 @@ class Sprites {
     back_default: string;
     front_shiny: string;
     back_shiny: string;
+    artwork: string;
 }
 
 export class Move {

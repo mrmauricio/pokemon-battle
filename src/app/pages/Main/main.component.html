@@ -4,14 +4,17 @@
             <fa-icon [icon]="section.title.icon"></fa-icon
             >{{ section.title.name }}
         </h1>
-        <app-loading
-            *ngIf="
-                section.isLoading &&
-                !section.error &&
-                !section.buttonList.isLoading
-            "
-        ></app-loading>
-        <app-error *ngIf="section.error"></app-error>
+        <div class="main-loading">
+            <app-loading
+                *ngIf="
+                    section.isLoading &&
+                    !section.error &&
+                    !section.buttonList.isLoading
+                "
+            ></app-loading>
+
+            <app-error *ngIf="section.error"></app-error>
+        </div>
         <div
             class="main-article"
             *ngIf="
