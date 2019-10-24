@@ -163,6 +163,26 @@ section {
                 }
             }
 
+            #not-fighter-wrapper {
+                width: 100%;
+
+                display: flex;
+                justify-content: center;
+
+                padding: 2rem 0 2rem;
+                border-bottom: 0.1rem solid #eee;
+                border-top: 0.1rem solid #eee;
+
+                p {
+                    text-align: center;
+                    font-size: 1.5rem;
+
+                    a {
+                        color: #ff0000;
+                    }
+                }
+            }
+
             #btn-wrapper {
                 width: 100%;
                 margin: 3rem;
@@ -190,6 +210,13 @@ section {
 
                     span {
                         margin-left: 0.7rem;
+                    }
+
+                    &:disabled {
+                        cursor: not-allowed;
+                        border: 0.2rem solid #999999;
+                        background-color: #cccccc;
+                        color: #666666;
                     }
                 }
             }

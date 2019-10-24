@@ -44,14 +44,6 @@ export class PokemonComponent implements OnInit {
                 isFighter
             );
 
-            let { movesId } = movesIdList.find(
-                (item) => item.pokemonId === this.id
-            );
-
-            this.pokemon.moves = await this.pokemonService.getMoveByIdList(
-                movesId
-            );
-
             console.log(this.pokemon);
 
             this.isLoading = false;

@@ -52,7 +52,7 @@
                     </ul>
                 </div>
 
-                <div class="pokemon-moves">
+                <div *ngIf="isFighter" class="pokemon-moves">
                     <h2>Moves:</h2>
                     <ul>
                         <li *ngFor="let move of pokemon.moves">
@@ -76,8 +76,16 @@
                     </ul>
                 </div>
 
+                <div *ngIf="!isFighter" id="not-fighter-wrapper">
+                    <p>
+                        {{ pokemon.name | titlecase }} is in a peaceful mood and
+                        chose not to fight. <br />
+                        Check the fighters <a routerLink="/">here</a>
+                    </p>
+                </div>
+
                 <div id="btn-wrapper">
-                    <button>
+                    <button [disabled]="isFighter ? false : true">
                         <fa-icon [icon]="faBolt"></fa-icon>
                         <span>Start Battle</span>
                     </button>
