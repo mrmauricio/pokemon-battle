@@ -14,11 +14,11 @@
                 <div class="pokemon-info">
                     <ul>
                         <li>
-                            <strong>National Nº</strong>
+                            <small>National Nº</small>
                             <span>{{ pokemon.id }}</span>
                         </li>
                         <li>
-                            <strong>Type</strong>
+                            <small>Type</small>
                             <span>
                                 <span
                                     *ngFor="
@@ -32,11 +32,11 @@
                             </span>
                         </li>
                         <li>
-                            <strong>Height</strong>
+                            <small>Height</small>
                             <span>{{ pokemon.height }} m</span>
                         </li>
                         <li>
-                            <strong>Ability</strong>
+                            <small>Ability</small>
                             <span>
                                 <span
                                     *ngFor="
@@ -57,30 +57,30 @@
                     <ul>
                         <li *ngFor="let move of pokemon.moves">
                             <div>
-                                <span>{{ move.name | uppercase }}</span>
-                                <span
-                                    ><small>POWER:</small>{{ move.power }}</span
-                                >
-                                <span
-                                    ><small>TYPE:</small
-                                    >{{ move.type | titlecase }}</span
-                                >
+                                <span>
+                                    <h3>{{ move.name | uppercase }}</h3>
+                                </span>
+                                <span>
+                                    <span>
+                                        <small>Power</small
+                                        ><span>{{ move.power }}</span>
+                                    </span>
+                                    <span>
+                                        <small>Type</small>
+                                        <span>{{ move.type | titlecase }}</span>
+                                    </span>
+                                </span>
                             </div>
                             <p>{{ move.text }}</p>
                         </li>
                     </ul>
                 </div>
 
-                <div class="pokemon-stats">
-                    <h2>Stats:</h2>
-                    <ul>
-                        <li *ngFor="let stat of pokemon.stats">
-                            <span
-                                ><strong>{{ stat.name }}:</strong>
-                                {{ stat.power }}</span
-                            >
-                        </li>
-                    </ul>
+                <div id="btn-wrapper">
+                    <button>
+                        <fa-icon [icon]="faBolt"></fa-icon>
+                        <span>Start Battle</span>
+                    </button>
                 </div>
             </div>
         </div>

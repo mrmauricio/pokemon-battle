@@ -15,6 +15,10 @@ section {
         header {
             text-align: center;
             padding: 1rem;
+
+            h1 {
+                margin-bottom: 1rem;
+            }
         }
 
         > div {
@@ -46,6 +50,7 @@ section {
             .pokemon-info {
                 width: 100%;
                 padding: 1rem;
+                margin-bottom: 1rem;
 
                 display: flex;
                 align-items: center;
@@ -63,11 +68,15 @@ section {
                         display: flex;
                         align-items: baseline;
 
-                        strong {
+                        &:last-child {
+                            padding-bottom: 1rem;
+                            margin-bottom: 1rem;
+                            border-bottom: 0.1rem solid #eee;
+                        }
+
+                        small {
                             width: 40%;
                             text-align: end;
-                            font-size: 1.3rem;
-                            font-weight: normal;
                             color: #737373;
                         }
 
@@ -76,12 +85,111 @@ section {
                             width: 60%;
                             margin-left: 1rem;
                         }
+                    }
+                }
+            }
+
+            .pokemon-moves {
+                width: 100%;
+                padding: 1rem;
+
+                h2 {
+                    font-size: 2.1rem;
+                }
+
+                ul {
+                    width: 100%;
+
+                    li {
+                        width: 100%;
+
+                        padding-top: 1rem;
+                        margin-top: 1rem;
+                        border-top: 0.1rem solid #eee;
 
                         &:last-child {
                             padding-bottom: 1rem;
                             margin-bottom: 1rem;
                             border-bottom: 0.1rem solid #eee;
                         }
+
+                        > div {
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: space-between;
+                            margin-bottom: 1rem;
+
+                            > span {
+                                &:first-child {
+                                    display: flex;
+                                    align-items: center;
+                                    width: 100%;
+
+                                    h3 {
+                                        font-size: 1.5rem;
+                                    }
+                                }
+
+                                &:last-child {
+                                    margin-top: 0.5rem;
+
+                                    display: flex;
+                                    flex-direction: column;
+
+                                    > span {
+                                        display: flex;
+                                        align-items: baseline;
+
+                                        small {
+                                            color: #737373;
+                                            width: 4rem;
+                                        }
+
+                                        span {
+                                            font-size: 1.5rem;
+                                            margin-left: 0.5rem;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        p {
+                            font-size: 1.5rem;
+                            text-align: justify;
+                            text-justify: inter-word;
+                        }
+                    }
+                }
+            }
+
+            #btn-wrapper {
+                width: 100%;
+                margin: 3rem;
+
+                display: flex;
+                justify-content: center;
+
+                button {
+                    margin: 0.5rem;
+                    background: #fff;
+                    height: 3.6rem;
+                    width: 14rem;
+                    font-weight: bold;
+                    font-size: 1.3rem;
+                    color: #ff0000;
+                    border: 0.2rem solid #ff0000;
+                    border-radius: 16px;
+                    cursor: pointer;
+                    outline-color: #ff0000;
+                    transition: 0.2s;
+
+                    &:hover {
+                        background-color: rgba(255, 0, 0, 0.1);
+                    }
+
+                    span {
+                        margin-left: 0.7rem;
                     }
                 }
             }
@@ -93,10 +201,29 @@ section {
     }
 
     @media (min-width: 400px) {
-        .pokemon-detail {
-            > div {
-                #img-wrapper {
-                    height: 25rem;
+        .pokemon-detail > div {
+            #img-wrapper {
+                height: 25rem;
+            }
+
+            .pokemon-moves ul li > div > span {
+                &:first-child {
+                    width: 11rem;
+                }
+
+                &:last-child {
+                    margin-top: 0;
+                    width: 11rem;
+
+                    > span {
+                        small {
+                            text-align: end;
+                        }
+
+                        span {
+                            margin-left: 1rem;
+                        }
+                    }
                 }
             }
         }
@@ -105,6 +232,8 @@ section {
     @media (min-width: 768px) {
         .pokemon-detail > div #img-wrapper {
             width: 50%;
+            height: 30rem;
+            margin-bottom: 1rem;
         }
 
         .pokemon-detail > div .pokemon-info {

@@ -63,53 +63,56 @@ export class PokemonService {
         return pokemonPreview;
     }
 
-    async getPokemonDataById(id: number) {
+    async getPokemonDataById(id: number, isFighter: boolean) {
         const data: any = await this.http
             .get(`${this.baseUrl}/pokemon/${id}`)
             .toPromise();
 
         // set pokemon stats
 
-        let statArray: Stat[] = data.stats.map((s) => {
-            return {
-                name: s.stat.name,
-                power: s.base_stat
-            };
-        });
+        let statArray: Stat[] = [];
 
-        let deleteProperties: Stat[] = [];
+        if (isFighter) {
+            statArray = data.stats.map((s) => {
+                return {
+                    name: s.stat.name,
+                    power: s.base_stat
+                };
+            });
 
-        const attack = statArray.find((stat) => stat.name === "attack");
-        const specialAttack = statArray.find(
-            (stat) => stat.name === "special-attack"
-        );
-        const defense = statArray.find((stat) => stat.name === "defense");
-        const specialDefense = statArray.find(
-            (stat) => stat.name === "special-defense"
-        );
+            let deleteProperties: Stat[] = [];
 
-        if (attack.power >= specialAttack.power) {
-            deleteProperties.push(specialAttack);
-        } else {
-            specialAttack.name = attack.name;
-            deleteProperties.push(attack);
+            const attack = statArray.find((stat) => stat.name === "attack");
+            const specialAttack = statArray.find(
+                (stat) => stat.name === "special-attack"
+            );
+            const defense = statArray.find((stat) => stat.name === "defense");
+            const specialDefense = statArray.find(
+                (stat) => stat.name === "special-defense"
+            );
+
+            if (attack.power >= specialAttack.power) {
+                deleteProperties.push(specialAttack);
+            } else {
+                specialAttack.name = attack.name;
+                deleteProperties.push(attack);
+            }
+
+            if (defense.power >= specialDefense.power) {
+                deleteProperties.push(specialDefense);
+            } else {
+                specialDefense.name = defense.name;
+                deleteProperties.push(defense);
+            }
+
+            deleteProperties.forEach((prop) => {
+                statArray = statArray.filter((stat) => stat !== prop);
+            });
+
+            statArray = statArray.sort((a, b) => a.name.localeCompare(b.name));
+
+            console.log(statArray);
         }
-
-        if (defense.power >= specialDefense.power) {
-            deleteProperties.push(specialDefense);
-        } else {
-            specialDefense.name = defense.name;
-            deleteProperties.push(defense);
-        }
-
-        deleteProperties.forEach((prop) => {
-            statArray = statArray.filter((stat) => stat !== prop);
-        });
-
-        statArray = statArray.sort((a, b) => a.name.localeCompare(b.name));
-
-        console.log(statArray);
-
         // set pokemon moves
 
         const pokemon: PokemonData = {

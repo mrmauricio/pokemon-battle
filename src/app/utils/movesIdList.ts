@@ -59,7 +59,7 @@ export const movesIdList: MoveList[] = [
     },
     {
         pokemonId: 38,
-        movesId: [53, 339, 412, 326]
+        movesId: [53, 399, 412, 326]
         // flamethrower - 90 - FIRE
         // dark pulse - 80 - DARK
         // energy ball - 90 - GRASS

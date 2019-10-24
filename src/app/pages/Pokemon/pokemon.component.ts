@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { faBolt } from "@fortawesome/free-solid-svg-icons";
 
 import { PokemonService } from "./../../services/pokemon.service";
 
@@ -21,6 +22,8 @@ export class PokemonComponent implements OnInit {
     isLoading: boolean = true;
     error: boolean = false;
 
+    faBolt = faBolt;
+
     constructor(
         private route: ActivatedRoute,
         private pokemonService: PokemonService
@@ -29,14 +32,17 @@ export class PokemonComponent implements OnInit {
     async ngOnInit() {
         this.checkFighterId();
 
-        this.getPokemonData(this.id);
+        this.getPokemonData(this.id, this.isFighter);
     }
 
-    async getPokemonData(id: number) {
+    async getPokemonData(id: number, isFighter: boolean) {
         this.isLoading = true;
 
         try {
-            this.pokemon = await this.pokemonService.getPokemonDataById(id);
+            this.pokemon = await this.pokemonService.getPokemonDataById(
+                id,
+                isFighter
+            );
 
             let { movesId } = movesIdList.find(
                 (item) => item.pokemonId === this.id
