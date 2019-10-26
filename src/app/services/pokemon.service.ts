@@ -93,7 +93,7 @@ export class PokemonService {
         );
 
         const move: Move = {
-            name: data.name,
+            name: data.name.replace("-", " "),
             text: text.flavor_text,
             type: data.type.name,
             power: data.power

@@ -3,9 +3,53 @@
         <app-loading *ngIf="isLoading && !error"></app-loading>
         <app-error *ngIf="error"></app-error>
         <div class="pokemon-detail" *ngIf="!isLoading && !error">
-            <header>
+            <nav>
+                <div [class.nav-disabled]="id === 1">
+                    <a
+                        [class.nav-disabled]="id === 1"
+                        routerLink="/pokemon/{{ pokemon.id - 1 }}"
+                    >
+                        <fa-icon [icon]="faArrowAltCircleLeft"></fa-icon>
+                        <span>#{{ pokemon.id - 1 }}</span>
+                    </a>
+
+                    <a routerLink="/pokemon/{{ pokemon.id + 1 }}">
+                        <span>#{{ pokemon.id + 1 }}</span>
+                        <fa-icon [icon]="faArrowAltCircleRight"></fa-icon>
+                    </a>
+                </div>
+
+                <div
+                    [class.nav-disabled]="fighterIndex === 0"
+                    *ngIf="isFighter"
+                    id="nav-fighter"
+                >
+                    <a
+                        [class.nav-disabled]="fighterIndex === 0"
+                        routerLink="/pokemon/{{
+                            fightersIdList[fighterIndex - 1]
+                        }}"
+                    >
+                        <fa-icon [icon]="faArrowAltCircleLeft"></fa-icon>
+                        <span>Previous Fighter</span>
+                    </a>
+                    <a
+                        [class.nav-disabled]="
+                            fighterIndex === fightersIdList.length - 1
+                        "
+                        routerLink="/pokemon/{{
+                            fightersIdList[fighterIndex + 1]
+                        }}"
+                    >
+                        <span>Next Fighter</span>
+                        <fa-icon [icon]="faArrowAltCircleRight"></fa-icon>
+                    </a>
+                </div>
+            </nav>
+            <header [class.header-position]="isFighter">
                 <h1>#{{ pokemon.id }} {{ pokemon.name | uppercase }}</h1>
             </header>
+
             <div>
                 <div id="img-wrapper">
                     <img [src]="pokemon.sprites.artwork" [alt]="pokemon.name" />
@@ -45,7 +89,13 @@
                                     "
                                 >
                                     {{ ability | titlecase }}
-                                    <span *ngIf="i === 0"> / <br /></span>
+                                    <span
+                                        *ngIf="
+                                            i !== pokemon.abilities.length - 1
+                                        "
+                                    >
+                                        / <br
+                                    /></span>
                                 </span>
                             </span>
                         </li>
@@ -55,15 +105,21 @@
                 <div *ngIf="isFighter" class="pokemon-moves">
                     <h2>Moves:</h2>
                     <ul>
-                        <li *ngFor="let move of pokemon.moves">
+                        <li *ngFor="let move of pokemon.moves; let i = index">
                             <div>
                                 <span>
                                     <h3>{{ move.name | uppercase }}</h3>
                                 </span>
                                 <span>
                                     <span>
-                                        <small>Power</small
-                                        ><span>{{ move.power }}</span>
+                                        <small>Power</small>
+                                        <span
+                                            >{{ move.power }}
+                                            <fa-icon
+                                                *ngIf="isMoveStab[i] === true"
+                                                [icon]="faAngleDoubleUp"
+                                            ></fa-icon>
+                                        </span>
                                     </span>
                                     <span>
                                         <small>Type</small>
@@ -74,6 +130,10 @@
                             <p>{{ move.text }}</p>
                         </li>
                     </ul>
+                    <p>
+                        <fa-icon [icon]="faAngleDoubleUp"></fa-icon>
+                        <span> : Same type attack bonus</span>
+                    </p>
                 </div>
 
                 <div *ngIf="!isFighter" id="not-fighter-wrapper">
@@ -93,4 +153,7 @@
             </div>
         </div>
     </div>
+    <a routerLink="/">
+        <fa-icon [icon]="faArrowAltCircleLeft"></fa-icon>
+    </a>
 </section>
