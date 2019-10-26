@@ -19,20 +19,20 @@ import { PokemonData } from "./../../classes/pokemon";
     styleUrls: ["./pokemon.component.scss"]
 })
 export class PokemonComponent implements OnInit {
+    // current pokemon
     id = Number(this.route.snapshot.paramMap.get("id"));
     pokemon: PokemonData;
-
     isFighter: boolean;
     isMoveStab: boolean[] = [];
-
+    // page status
     isLoading: boolean = true;
     error: boolean = false;
-
+    // font awesome icons
     faBolt = faBolt;
     faAngleDoubleUp = faAngleDoubleUp;
     faArrowAltCircleLeft = faArrowAltCircleLeft;
     faArrowAltCircleRight = faArrowAltCircleRight;
-
+    // navigation
     fightersIdList = fightersIdList;
     fighterIndex: number;
     navigationSubscription;
@@ -57,6 +57,7 @@ export class PokemonComponent implements OnInit {
     }
 
     async getPokemonData() {
+        // fetch current pokemon data from service
         this.isLoading = true;
 
         try {
@@ -65,7 +66,7 @@ export class PokemonComponent implements OnInit {
                 this.isFighter
             );
 
-            console.log(this.pokemon);
+            //console.log(this.pokemon);
 
             this.isLoading = false;
             this.error = false;
@@ -77,21 +78,41 @@ export class PokemonComponent implements OnInit {
     }
 
     getFighterIndex() {
+        // get current pokemon's index on fighters array
         this.fighterIndex = this.fightersIdList.findIndex(
             (id) => id === this.id
         );
     }
 
     checkFighterId() {
+        // check if current pokemon is a fighter
         this.isFighter = Boolean(
             this.fightersIdList.find((id) => id === this.id)
         );
     }
 
     checkMoveType() {
+        // check moves with same type attack bonus
         this.isMoveStab = this.pokemon.moves.map((move) =>
             Boolean(this.pokemon.types.find((type) => type === move.type))
         );
+    }
+
+    async startBattle() {
+        // get enemy pokemon data
+        let idList = fightersIdList.filter((id) => id !== this.id);
+
+        let randomPokemonId = idList[Math.floor(Math.random() * idList.length)];
+
+        let enemyPokemon = await this.pokemonService.getPokemonDataById(
+            randomPokemonId,
+            true
+        );
+
+        // time to battle!
+        this.router.navigateByUrl("/battle", {
+            state: { playerPokemon: this.pokemon, enemyPokemon }
+        });
     }
 
     configSameComponentNavigation() {
@@ -111,6 +132,7 @@ export class PokemonComponent implements OnInit {
     }
 
     ngOnDestroy() {
+        // cancel subscription
         if (this.navigationSubscription) {
             this.navigationSubscription.unsubscribe();
         }

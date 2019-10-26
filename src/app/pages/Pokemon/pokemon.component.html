@@ -145,7 +145,10 @@
                 </div>
 
                 <div id="btn-wrapper">
-                    <button [disabled]="isFighter ? false : true">
+                    <button
+                        (click)="startBattle()"
+                        [disabled]="isFighter ? false : true"
+                    >
                         <fa-icon [icon]="faBolt"></fa-icon>
                         <span>Start Battle</span>
                     </button>

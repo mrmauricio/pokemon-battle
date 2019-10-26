@@ -141,7 +141,7 @@ export class PokemonService {
 
         statArray = statArray.sort((a, b) => a.name.localeCompare(b.name));
 
-        console.log(statArray);
+        //console.log(statArray);
 
         return statArray;
     }
