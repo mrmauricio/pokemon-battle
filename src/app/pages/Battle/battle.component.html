@@ -1,1 +1,40 @@
-<p>battle works!</p>
+<section>
+    <div>
+        <img src="assets/images/battle-background.jpeg" alt="" />
+        <div class="battle-menu">
+            <div *ngIf="battlePhase === 3" class="battle-info">
+                <span>
+                    {{
+                        getBattleInfoText(
+                            this.battleInfo,
+                            this.playerPokemon.name
+                        )
+                    }}
+                </span>
+            </div>
+            <div *ngIf="battlePhase !== 3" class="battle-options">
+                <div class="battle-left-options">
+                    <span *ngIf="battlePhase === 1">{{
+                        getBattleInfoText(
+                            this.battleInfo,
+                            this.playerPokemon.name
+                        )
+                    }}</span>
+                    <ng-container *ngIf="battlePhase === 2">
+                        <button *ngFor="let move of playerPokemon.moves">
+                            {{ move.name }}
+                        </button>
+                    </ng-container>
+                </div>
+                <div class="battle-right-options">
+                    <button
+                        (click)="handleOptionSelect(option.id)"
+                        *ngFor="let option of battleOptions"
+                    >
+                        {{ option.name }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

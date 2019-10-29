@@ -4,7 +4,8 @@ import {
     faBolt,
     faAngleDoubleUp,
     faArrowAltCircleLeft,
-    faArrowAltCircleRight
+    faArrowAltCircleRight,
+    faFan
 } from "@fortawesome/free-solid-svg-icons";
 
 import { PokemonService } from "./../../services/pokemon.service";
@@ -26,12 +27,14 @@ export class PokemonComponent implements OnInit {
     isMoveStab: boolean[] = [];
     // page status
     isLoading: boolean = true;
+    isBattleLoading: boolean = false;
     error: boolean = false;
     // font awesome icons
     faBolt = faBolt;
     faAngleDoubleUp = faAngleDoubleUp;
     faArrowAltCircleLeft = faArrowAltCircleLeft;
     faArrowAltCircleRight = faArrowAltCircleRight;
+    faFan = faFan;
     // navigation
     fightersIdList = fightersIdList;
     fighterIndex: number;
@@ -100,6 +103,8 @@ export class PokemonComponent implements OnInit {
 
     async startBattle() {
         // get enemy pokemon data
+        this.isBattleLoading = true;
+
         let idList = fightersIdList.filter((id) => id !== this.id);
 
         let randomPokemonId = idList[Math.floor(Math.random() * idList.length)];
@@ -108,6 +113,8 @@ export class PokemonComponent implements OnInit {
             randomPokemonId,
             true
         );
+
+        this.isBattleLoading = false;
 
         // time to battle!
         this.router.navigateByUrl("/battle", {

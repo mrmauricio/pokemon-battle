@@ -147,9 +147,19 @@
                 <div id="btn-wrapper">
                     <button
                         (click)="startBattle()"
-                        [disabled]="isFighter ? false : true"
+                        [disabled]="
+                            !isFighter || isBattleLoading ? true : false
+                        "
                     >
-                        <fa-icon [icon]="faBolt"></fa-icon>
+                        <fa-icon
+                            *ngIf="isBattleLoading"
+                            [icon]="faFan"
+                            [spin]="true"
+                        ></fa-icon>
+                        <fa-icon
+                            *ngIf="!isBattleLoading"
+                            [icon]="faBolt"
+                        ></fa-icon>
                         <span>Start Battle</span>
                     </button>
                 </div>

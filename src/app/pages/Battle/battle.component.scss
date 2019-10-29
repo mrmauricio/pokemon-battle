@@ -1,0 +1,74 @@
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > div {
+        background: #fff;
+        border-radius: 8px;
+        width: 90%;
+        padding: 2rem;
+        margin: 1rem;
+
+        img {
+            width: 100%;
+            background: #000;
+            border: 0.3rem #000 solid;
+            border-radius: 0.5rem;
+        }
+
+        .battle-menu {
+            border: 0.5rem #000 double;
+            border-radius: 0.5rem;
+            height: 9rem;
+            font-size: 1.8rem;
+
+            .battle-info {
+                height: 100%;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .battle-options {
+                display: flex;
+                height: 100%;
+
+                .battle-left-options,
+                .battle-right-options {
+                    flex: 2;
+                    position: relative;
+
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    justify-content: space-evenly;
+
+                    button {
+                        cursor: pointer;
+                        font-size: 1.8rem;
+                        width: 35%;
+                        background: none;
+                        border: none;
+                        text-align: start;
+                        outline-color: #ff0000;
+                    }
+                }
+
+                .battle-left-options {
+                    flex: 3;
+
+                    &::after {
+                        position: absolute;
+                        content: "";
+                        height: 90%;
+                        width: 0.2rem;
+                        left: 100%;
+                        top: 5%;
+                        background-color: #000;
+                    }
+                }
+            }
+        }
+    }
+}
