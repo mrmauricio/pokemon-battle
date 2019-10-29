@@ -13,7 +13,7 @@ export class PokemonData {
     abilities: string[];
     height: number;
     moves: Move[];
-    stats: Stat[];
+    stats: Stats;
 }
 
 class Sprites {
@@ -33,9 +33,11 @@ export class Move {
     //accuracy: number;
 }
 
-export class Stat {
-    name: string;
-    power: number;
+export class Stats {
+    attack: number;
+    defense: number;
+    hp: number;
+    speed: number;
 }
 
 export class MoveList {

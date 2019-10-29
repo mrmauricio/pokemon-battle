@@ -16,7 +16,7 @@ export class BattleComponent implements OnInit {
     enemyPokemon: PokemonData;
 
     battlePhase: number;
-    battleInfo: number;
+    battleInfoText: string;
     waitTime: number = 2000;
 
     battlePhases: number[] = [
@@ -35,8 +35,6 @@ export class BattleComponent implements OnInit {
     constructor(private router: Router) {}
 
     ngOnInit() {
-        this.setInitialState();
-
         if (
             history.state.hasOwnProperty("enemyPokemon") &&
             history.state.hasOwnProperty("playerPokemon")
@@ -53,13 +51,19 @@ export class BattleComponent implements OnInit {
             this.enemyPokemon = this.formatPokemonData(mockPokemon2);
         }
 
+        this.setInitialState();
+
         console.log(this.playerPokemon);
         console.log(this.enemyPokemon);
     }
 
     setInitialState() {
         this.battlePhase = 1;
-        this.battleInfo = 1;
+        this.battleInfoText = this.getBattleInfoText(
+            1,
+            this.playerPokemon.name,
+            null
+        );
     }
 
     getBattleInfoText(id: number, pokemonName: string, moveName: string) {
@@ -89,7 +93,7 @@ export class BattleComponent implements OnInit {
             // bag
             case 2:
                 this.battlePhase = 3;
-                this.battleInfo = 11;
+                this.battleInfoText = this.getBattleInfoText(11, null, null);
 
                 setTimeout(() => {
                     this.setInitialState();
@@ -98,7 +102,11 @@ export class BattleComponent implements OnInit {
             // pokemon
             case 3:
                 this.battlePhase = 3;
-                this.battleInfo = 12;
+                this.battleInfoText = this.getBattleInfoText(
+                    12,
+                    this.playerPokemon.name,
+                    null
+                );
 
                 setTimeout(() => {
                     this.setInitialState();
@@ -106,7 +114,7 @@ export class BattleComponent implements OnInit {
                 break;
             case 4:
                 this.battlePhase = 3;
-                this.battleInfo = 13;
+                this.battleInfoText = this.getBattleInfoText(13, null, null);
 
                 setTimeout(() => {
                     this.setInitialState();
@@ -117,23 +125,16 @@ export class BattleComponent implements OnInit {
         }
     }
 
-    getStatPower(pokemon: PokemonData, statName: string) {
-        return pokemon.stats.find((stat) => stat.name === statName).power;
-    }
-
     // format data
 
     formatPokemonData(pokemon: PokemonData) {
-        let hpPower = this.getStatPower(pokemon, "hp");
-
         return {
             ...pokemon,
             name: this.capitalizeFirstLetter(pokemon.name),
             moves: pokemon.moves.map((move) => {
                 move.name = this.capitalizeFirstLetter(move.name);
                 return move;
-            }),
-            stats: [...pokemon.stats, { name: "current hp", power: hpPower }]
+            })
         };
     }
 

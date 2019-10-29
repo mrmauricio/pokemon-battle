@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { PokemonPreview, PokemonData, Stat, Move } from "../classes/pokemon";
+import { PokemonPreview, PokemonData, Move, Stats } from "../classes/pokemon";
 import { movesIdList } from "./../utils/movesIdList";
 
 @Injectable({
@@ -42,7 +42,7 @@ export class PokemonService {
             .get(`${this.baseUrl}/pokemon/${id}`)
             .toPromise();
 
-        let statArray: Stat[] = [];
+        let statArray: Stats;
         let moveArray: Move[] = [];
 
         if (isFighter) {
@@ -103,52 +103,24 @@ export class PokemonService {
     }
 
     formatStats(stats) {
-        let statArray: Stat[] = stats.map((s) => {
-            let name = s.stat.name;
-            let power = s.base_stat;
+        let statArray = stats.reduce((acc, s) => {
+            acc[s.stat.name] = s.base_stat;
 
-            if (name === "hp") {
-                power = 200 + power * 2;
-            }
+            return acc;
+        }, {});
 
-            return {
-                name,
-                power
-            };
-        });
-
-        let deleteProperties: Stat[] = [];
-
-        const attack = statArray.find((stat) => stat.name === "attack");
-        const specialAttack = statArray.find(
-            (stat) => stat.name === "special-attack"
-        );
-        const defense = statArray.find((stat) => stat.name === "defense");
-        const specialDefense = statArray.find(
-            (stat) => stat.name === "special-defense"
-        );
-
-        if (attack.power >= specialAttack.power) {
-            deleteProperties.push(specialAttack);
-        } else {
-            specialAttack.name = attack.name;
-            deleteProperties.push(attack);
+        if (statArray["attack"] < statArray["special-attack"]) {
+            statArray["attack"] = statArray["special-attack"];
         }
 
-        if (defense.power >= specialDefense.power) {
-            deleteProperties.push(specialDefense);
-        } else {
-            specialDefense.name = defense.name;
-            deleteProperties.push(defense);
+        if (statArray["defense"] < statArray["special-defense"]) {
+            statArray["defense"] = statArray["special-defense"];
         }
 
-        deleteProperties.forEach((prop) => {
-            statArray = statArray.filter((stat) => stat !== prop);
-        });
+        delete statArray["special-attack"];
+        delete statArray["special-defense"];
 
-        statArray = statArray.sort((a, b) => a.name.localeCompare(b.name));
-
-        console.log(statArray);
+        //console.log(statArray);
 
         return statArray;
     }

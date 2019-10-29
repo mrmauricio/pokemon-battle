@@ -45,12 +45,12 @@ export const mockPokemon = {
             type: "ghost"
         }
     ],
-    stats: [
-        { name: "attack", power: 90 },
-        { name: "defense", power: 80 },
-        { name: "hp", power: 320 },
-        { name: "speed", power: 70 }
-    ]
+    stats: {
+        attack: 90,
+        defense: 80,
+        hp: 320,
+        speed: 70
+    }
 };
 
 export const mockPokemon2 = {
@@ -100,10 +100,10 @@ export const mockPokemon2 = {
             type: "bug"
         }
     ],
-    stats: [
-        { name: "attack", power: 80 },
-        { name: "defense", power: 75 },
-        { name: "hp", power: 366 },
-        { name: "speed", power: 101 }
-    ]
+    stats: {
+        attack: 80,
+        defense: 75,
+        hp: 366,
+        speed: 101
+    }
 };

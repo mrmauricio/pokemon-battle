@@ -15,9 +15,7 @@
                     </div>
                 </div>
                 <small>
-                    {{ getStatPower(playerPokemon, "current hp") }}/{{
-                        getStatPower(playerPokemon, "hp")
-                    }}
+                    200/200
                 </small>
             </div>
             <img
@@ -32,32 +30,20 @@
                         <div></div>
                     </div>
                 </div>
-                <small>
-                    {{ getStatPower(enemyPokemon, "current hp") }}/{{
-                        getStatPower(enemyPokemon, "hp")
-                    }}</small
-                >
+                <small> 200/200</small>
             </div>
         </div>
         <div class="battle-menu">
             <div *ngIf="battlePhase === 3" class="battle-info">
                 <span>
-                    {{
-                        getBattleInfoText(
-                            this.battleInfo,
-                            this.playerPokemon.name
-                        )
-                    }}
+                    {{ battleInfoText }}
                 </span>
             </div>
             <div *ngIf="battlePhase !== 3" class="battle-options">
                 <div class="battle-left-options">
-                    <span *ngIf="battlePhase === 1">{{
-                        getBattleInfoText(
-                            this.battleInfo,
-                            this.playerPokemon.name
-                        )
-                    }}</span>
+                    <span *ngIf="battlePhase === 1">
+                        {{ battleInfoText }}
+                    </span>
                     <ng-container *ngIf="battlePhase === 2">
                         <button
                             (click)="handleMoveSelect(move)"
