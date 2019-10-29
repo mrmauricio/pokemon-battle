@@ -6,15 +6,126 @@ section {
     > div {
         background: #fff;
         border-radius: 8px;
+        min-width: 650px;
         width: 90%;
         padding: 2rem;
         margin: 1rem;
 
-        img {
-            width: 100%;
-            background: #000;
-            border: 0.3rem #000 solid;
-            border-radius: 0.5rem;
+        .battle-background {
+            position: relative;
+
+            #bg {
+                width: 100%;
+
+                background: #000;
+                border: 0.3rem #000 solid;
+                border-radius: 0.5rem;
+            }
+
+            #player-info {
+                position: absolute;
+                bottom: 15%;
+                right: 15%;
+            }
+
+            #enemy-info {
+                position: absolute;
+                top: 15%;
+                left: 15%;
+            }
+
+            #player-info,
+            #enemy-info {
+                background: #fff;
+                width: 20rem;
+                padding: 0.5rem 1rem;
+                font-size: 1.5rem;
+
+                border: 1px #000 solid;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+                border-radius: 8px;
+
+                display: flex;
+                flex-direction: column;
+
+                .hp-bar {
+                    height: 1rem;
+                    width: 100%;
+                    margin: 0.5rem 0 0.25rem;
+
+                    border: 1px #000 solid;
+
+                    border-radius: 8px;
+
+                    div {
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 155, 0, 0.6);
+                        border-radius: 8px;
+                    }
+                }
+
+                small {
+                    text-align: end;
+                }
+            }
+
+            #player-sprite {
+                position: absolute;
+                left: 23%;
+                bottom: 16%;
+                width: 13rem;
+                height: 13rem;
+            }
+
+            #enemy-sprite {
+                position: absolute;
+                right: 23%;
+                top: 24%;
+                width: 13rem;
+                height: 13rem;
+            }
+
+            @media (max-width: 1010px) {
+                #player-sprite,
+                #enemy-sprite {
+                    width: 12rem;
+                    height: 12rem;
+                }
+
+                #player-info,
+                #enemy-info {
+                    width: 18rem;
+                    font-size: 1.4rem;
+                }
+            }
+
+            @media (max-width: 940px) {
+                #player-sprite,
+                #enemy-sprite {
+                    width: 11rem;
+                    height: 11rem;
+                }
+
+                #player-info,
+                #enemy-info {
+                    width: 16rem;
+                }
+            }
+
+            @media (max-width: 870px) {
+                #player-sprite,
+                #enemy-sprite {
+                    width: 10rem;
+                    height: 10rem;
+                }
+
+                #player-info,
+                #enemy-info {
+                    width: 14rem;
+                    font-size: 1.3rem;
+                }
+            }
         }
 
         .battle-menu {

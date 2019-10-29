@@ -1,6 +1,44 @@
 <section>
     <div>
-        <img src="assets/images/battle-background.jpeg" alt="" />
+        <div class="battle-background">
+            <img id="bg" src="assets/images/battle-background.jpeg" alt="bg" />
+            <img
+                id="player-sprite"
+                [src]="playerPokemon.sprites.back_default"
+                [alt]="playerPokemon.name"
+            />
+            <div id="player-info">
+                <strong>{{ playerPokemon.name }}</strong>
+                <div>
+                    <div class="hp-bar">
+                        <div></div>
+                    </div>
+                </div>
+                <small>
+                    {{ getStatPower(playerPokemon, "current hp") }}/{{
+                        getStatPower(playerPokemon, "hp")
+                    }}
+                </small>
+            </div>
+            <img
+                id="enemy-sprite"
+                [src]="enemyPokemon.sprites.front_default"
+                [alt]="enemyPokemon.name"
+            />
+            <div id="enemy-info">
+                <strong>{{ enemyPokemon.name }}</strong>
+                <div>
+                    <div class="hp-bar">
+                        <div></div>
+                    </div>
+                </div>
+                <small>
+                    {{ getStatPower(enemyPokemon, "current hp") }}/{{
+                        getStatPower(enemyPokemon, "hp")
+                    }}</small
+                >
+            </div>
+        </div>
         <div class="battle-menu">
             <div *ngIf="battlePhase === 3" class="battle-info">
                 <span>
@@ -21,7 +59,10 @@
                         )
                     }}</span>
                     <ng-container *ngIf="battlePhase === 2">
-                        <button *ngFor="let move of playerPokemon.moves">
+                        <button
+                            (click)="handleMoveSelect(move)"
+                            *ngFor="let move of playerPokemon.moves"
+                        >
                             {{ move.name }}
                         </button>
                     </ng-container>

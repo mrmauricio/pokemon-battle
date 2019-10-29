@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { PokemonData } from "./../../classes/pokemon";
+import { PokemonData, Move } from "./../../classes/pokemon";
 import { Text } from "./../../classes/battle";
 
 import { mockPokemon, mockPokemon2 } from "./mockPokemon";
@@ -15,8 +15,8 @@ export class BattleComponent implements OnInit {
     playerPokemon: PokemonData;
     enemyPokemon: PokemonData;
 
-    battlePhase: number = 1;
-    battleInfo: number = 1;
+    battlePhase: number;
+    battleInfo: number;
     waitTime: number = 2000;
 
     battlePhases: number[] = [
@@ -35,6 +35,8 @@ export class BattleComponent implements OnInit {
     constructor(private router: Router) {}
 
     ngOnInit() {
+        this.setInitialState();
+
         if (
             history.state.hasOwnProperty("enemyPokemon") &&
             history.state.hasOwnProperty("playerPokemon")
@@ -55,6 +57,11 @@ export class BattleComponent implements OnInit {
         console.log(this.enemyPokemon);
     }
 
+    setInitialState() {
+        this.battlePhase = 1;
+        this.battleInfo = 1;
+    }
+
     getBattleInfoText(id: number, pokemonName: string, moveName: string) {
         let battleInfo: Text[] = [
             { id: 1, name: `What will ${pokemonName} do?` },
@@ -69,6 +76,10 @@ export class BattleComponent implements OnInit {
         return info.name;
     }
 
+    handleMoveSelect(move: Move) {
+        console.log(move);
+    }
+
     handleOptionSelect(id: number) {
         switch (id) {
             // fight
@@ -80,41 +91,49 @@ export class BattleComponent implements OnInit {
                 this.battlePhase = 3;
                 this.battleInfo = 11;
 
-                this.showTemporaryText(1, 1);
+                setTimeout(() => {
+                    this.setInitialState();
+                }, this.waitTime);
                 break;
             // pokemon
             case 3:
                 this.battlePhase = 3;
                 this.battleInfo = 12;
 
-                this.showTemporaryText(1, 1);
+                setTimeout(() => {
+                    this.setInitialState();
+                }, this.waitTime);
                 break;
             case 4:
                 this.battlePhase = 3;
                 this.battleInfo = 13;
 
-                this.showTemporaryText(1, 1);
+                setTimeout(() => {
+                    this.setInitialState();
+                }, this.waitTime);
                 break;
             default:
                 break;
         }
     }
 
-    showTemporaryText(battlePhase: number, battleInfo: number) {
-        setTimeout(() => {
-            this.battlePhase = battlePhase;
-            this.battleInfo = battleInfo;
-        }, this.waitTime);
+    getStatPower(pokemon: PokemonData, statName: string) {
+        return pokemon.stats.find((stat) => stat.name === statName).power;
     }
 
+    // format data
+
     formatPokemonData(pokemon: PokemonData) {
+        let hpPower = this.getStatPower(pokemon, "hp");
+
         return {
             ...pokemon,
             name: this.capitalizeFirstLetter(pokemon.name),
             moves: pokemon.moves.map((move) => {
                 move.name = this.capitalizeFirstLetter(move.name);
                 return move;
-            })
+            }),
+            stats: [...pokemon.stats, { name: "current hp", power: hpPower }]
         };
     }
 

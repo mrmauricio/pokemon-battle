@@ -104,9 +104,16 @@ export class PokemonService {
 
     formatStats(stats) {
         let statArray: Stat[] = stats.map((s) => {
+            let name = s.stat.name;
+            let power = s.base_stat;
+
+            if (name === "hp") {
+                power = 200 + power * 2;
+            }
+
             return {
-                name: s.stat.name,
-                power: s.base_stat
+                name,
+                power
             };
         });
 
@@ -141,7 +148,7 @@ export class PokemonService {
 
         statArray = statArray.sort((a, b) => a.name.localeCompare(b.name));
 
-        //console.log(statArray);
+        console.log(statArray);
 
         return statArray;
     }

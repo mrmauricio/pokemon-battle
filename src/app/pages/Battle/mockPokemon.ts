@@ -48,7 +48,7 @@ export const mockPokemon = {
     stats: [
         { name: "attack", power: 90 },
         { name: "defense", power: 80 },
-        { name: "hp", power: 60 },
+        { name: "hp", power: 320 },
         { name: "speed", power: 70 }
     ]
 };
@@ -67,9 +67,9 @@ export const mockPokemon2 = {
         artwork: `https://img.pokemondb.net/artwork/large/butterfree.jpg`
     },
     name: "pidgeot",
-    types: ["bug", "flying"],
-    abilities: ["tinted-lens", "compound-eyes"],
-    height: 1.1,
+    types: ["normal", "flying"],
+    abilities: ["big-pecks", "tangled-feet", "keen-eye"],
+    height: 1.5,
     moves: [
         {
             name: "air slash",
@@ -79,31 +79,31 @@ export const mockPokemon2 = {
             type: "flying"
         },
         {
-            name: "psychic",
-            power: 90,
+            name: "steel wing",
+            power: 70,
             text:
-                "The target is hit by a strong telekinetic force.↵This may also lower the target’s Sp. Def stat.",
-            type: "psychic"
+                "The target is hit with wings of steel. This may also raise the user’s Defense stat.",
+            type: "steel"
         },
         {
-            name: "bug buzz",
+            name: "take down",
             power: 90,
             text:
-                "The user generates a damaging sound wave by↵vibration. This may also lower the target’s↵Sp. Def stat.",
+                "A reckless, full-body charge attack for slamming into the target. This also damages the user a little.",
+            type: "normal"
+        },
+        {
+            name: "u turn",
+            power: 70,
+            text:
+                "After making its attack, the user rushes back to switch places with a party Pokémon in waiting.",
             type: "bug"
-        },
-        {
-            name: "shadow ball",
-            power: 80,
-            text:
-                "The user hurls a shadowy blob at the target.↵This may also lower the target’s Sp. Def stat.",
-            type: "ghost"
         }
     ],
     stats: [
-        { name: "attack", power: 90 },
-        { name: "defense", power: 80 },
-        { name: "hp", power: 60 },
-        { name: "speed", power: 70 }
+        { name: "attack", power: 80 },
+        { name: "defense", power: 75 },
+        { name: "hp", power: 366 },
+        { name: "speed", power: 101 }
     ]
 };

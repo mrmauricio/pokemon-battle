@@ -69,7 +69,7 @@ export class PokemonComponent implements OnInit {
                 this.isFighter
             );
 
-            //console.log(this.pokemon);
+            console.log(this.pokemon);
 
             this.isLoading = false;
             this.error = false;
