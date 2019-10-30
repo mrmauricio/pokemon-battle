@@ -11,9 +11,11 @@ section {
         padding: 2rem;
         margin: 1rem;
 
+        // BATTLE SCREEN LAYOUT
         .battle-background {
             position: relative;
 
+            // background image
             #bg {
                 width: 100%;
 
@@ -22,12 +24,14 @@ section {
                 border-radius: 0.5rem;
             }
 
+            // player information on screen
             #player-info {
                 position: absolute;
                 bottom: 15%;
                 right: 15%;
             }
 
+            // enemy information on screen
             #enemy-info {
                 position: absolute;
                 top: 15%;
@@ -69,6 +73,7 @@ section {
                 }
             }
 
+            // player pokemon on screen
             #player-sprite {
                 position: absolute;
                 left: 23%;
@@ -77,6 +82,7 @@ section {
                 height: 13rem;
             }
 
+            // enemy pokemon on screen
             #enemy-sprite {
                 position: absolute;
                 right: 23%;
@@ -85,12 +91,14 @@ section {
                 height: 13rem;
             }
 
+            // player damage taken value on screen
             #player-damage-taken {
                 position: absolute;
                 left: 24%;
                 bottom: 49%;
             }
 
+            // enemy damage taken value on screen
             #enemy-damage-taken {
                 position: absolute;
                 left: 61%;
@@ -113,6 +121,7 @@ section {
                 }
             }
 
+            // media queries for sprites, info and damage value
             @media (max-width: 1010px) {
                 #player-sprite,
                 #enemy-sprite {
@@ -175,6 +184,7 @@ section {
                 }
             }
 
+            // attack animation
             .sprite-attack {
                 animation: attack 1s 2 alternate;
             }
@@ -189,6 +199,7 @@ section {
             }
         }
 
+        // BATTLE BOTTOM MENU
         .battle-menu {
             border: 0.5rem #000 double;
             border-radius: 0.5rem;
@@ -199,6 +210,7 @@ section {
                 font-size: 1.6rem;
             }
 
+            // informative text
             .battle-info {
                 height: 100%;
 
@@ -206,10 +218,13 @@ section {
                 align-items: center;
                 justify-content: center;
             }
+
+            // battle buttons
             .battle-options {
                 display: flex;
                 height: 100%;
 
+                // battle button section
                 .battle-left-options,
                 .battle-right-options {
                     flex: 2;

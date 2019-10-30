@@ -67,7 +67,7 @@ export const mockPokemon2 = {
         artwork: `https://img.pokemondb.net/artwork/large/butterfree.jpg`
     },
     name: "pidgeot",
-    types: ["fighting", "flying"],
+    types: ["normal", "flying"],
     abilities: ["big-pecks", "tangled-feet", "keen-eye"],
     height: 1.5,
     moves: [
@@ -77,28 +77,28 @@ export const mockPokemon2 = {
             text:
                 "The user attacks with a blade of air that slices even↵the sky. This may also make the target flinch.",
             type: "flying"
+        },
+        {
+            name: "steel wing",
+            power: 70,
+            text:
+                "The target is hit with wings of steel. This may also raise the user’s Defense stat.",
+            type: "steel"
+        },
+        {
+            name: "take down",
+            power: 90,
+            text:
+                "A reckless, full-body charge attack for slamming into the target. This also damages the user a little.",
+            type: "normal"
+        },
+        {
+            name: "u turn",
+            power: 70,
+            text:
+                "After making its attack, the user rushes back to switch places with a party Pokémon in waiting.",
+            type: "bug"
         }
-        //{
-        //    name: "steel wing",
-        //    power: 70,
-        //    text:
-        //        "The target is hit with wings of steel. This may also raise the user’s Defense stat.",
-        //    type: "steel"
-        //},
-        //{
-        //    name: "take down",
-        //    power: 90,
-        //    text:
-        //        "A reckless, full-body charge attack for slamming into the target. This also damages the user a little.",
-        //    type: "normal"
-        //},
-        //{
-        //    name: "u turn",
-        //    power: 70,
-        //    text:
-        //        "After making its attack, the user rushes back to switch places with a party Pokémon in waiting.",
-        //    type: "bug"
-        //}
     ],
     stats: {
         attack: 80,

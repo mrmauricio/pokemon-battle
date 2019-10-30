@@ -18,7 +18,7 @@ export class BattleComponent implements OnInit {
 
     battlePhase: number;
     battleInfoText: string;
-    waitTime: number = 2000;
+    waitTime: number = 2500;
 
     battlePhases: number[] = [
         1, // option select
@@ -41,7 +41,19 @@ export class BattleComponent implements OnInit {
 
     constructor(private router: Router) {}
 
+    // ---------------------------- //
+    // INITIAL CONFIG FUNCTIONS     //
+    // ---------------------------- //
+
     ngOnInit() {
+        // get data passed as state on route redirection
+        this.getFightersData();
+
+        // set initial battle phase and initial text
+        this.setInitialState();
+    }
+
+    getFightersData() {
         if (
             history.state.hasOwnProperty("enemyPokemon") &&
             history.state.hasOwnProperty("playerPokemon")
@@ -52,16 +64,13 @@ export class BattleComponent implements OnInit {
             this.enemyPokemon = this.formatPokemonData(
                 history.state.enemyPokemon
             );
+
+            this.setInitialState();
         } else {
             //this.router.navigateByUrl("/404");
             this.playerPokemon = this.formatPokemonData(mockPokemon);
             this.enemyPokemon = this.formatPokemonData(mockPokemon2);
         }
-
-        this.setInitialState();
-
-        console.log(this.playerPokemon);
-        console.log(this.enemyPokemon);
     }
 
     setInitialState() {
@@ -70,6 +79,200 @@ export class BattleComponent implements OnInit {
             1,
             this.playerPokemon.name
         );
+    }
+
+    // ---------------------------- //
+    // BATTLE FUNCTIONS             //
+    // ---------------------------- //
+
+    handleMoveSelect(playerMove: Move) {
+        let enemyMove = this.handleEnemyMove();
+
+        // start battle after player and enemy selected their moves
+        this.enterBattlePhase(playerMove, enemyMove);
+    }
+
+    handleEnemyMove() {
+        let randomMove = this.enemyPokemon.moves[
+            Math.floor(Math.random() * this.enemyPokemon.moves.length)
+        ];
+
+        return randomMove;
+    }
+
+    enterBattlePhase(playerMove: Move, enemyMove: Move) {
+        let firstAttacker,
+            firstAttackerMove,
+            secondAttacker,
+            secondAttackerMove;
+
+        this.battlePhase = 3;
+
+        // decide who attacks first based on speed stat
+        if (this.playerPokemon.stats.speed >= this.enemyPokemon.stats.speed) {
+            firstAttacker = this.playerPokemon;
+            firstAttackerMove = playerMove;
+            secondAttacker = this.enemyPokemon;
+            secondAttackerMove = enemyMove;
+        } else {
+            firstAttacker = this.enemyPokemon;
+            firstAttackerMove = enemyMove;
+            secondAttacker = this.playerPokemon;
+            secondAttackerMove = playerMove;
+        }
+
+        // first attack!
+        this.startAttack(firstAttacker, firstAttackerMove, secondAttacker);
+
+        // second attack!
+        setTimeout(() => {
+            firstAttacker.status.startAttack = false;
+
+            this.startAttack(secondAttacker, secondAttackerMove, firstAttacker);
+
+            setTimeout(() => {
+                secondAttacker.status.startAttack = false;
+
+                this.setInitialState();
+            }, this.waitTime);
+        }, this.waitTime);
+    }
+
+    startAttack(attacker: Fighter, attackerMove: Move, defender: Fighter) {
+        attacker.status.startAttack = true;
+
+        // check selected move effectiveness on target
+        let attackerMoveEffectiveness = this.calculateTypeEffectiveness(
+            attackerMove,
+            defender
+        );
+
+        // display on screen menu the attack text
+        this.battleInfoText = this.getBattleInfoText(
+            2,
+            attacker.name,
+            attackerMove.name,
+            attackerMoveEffectiveness
+        );
+
+        // display on screen the move effectiveness
+        attacker.status.currentAttackEffectiveness = this.getBattleInfoText(
+            0,
+            null,
+            null,
+            attackerMoveEffectiveness
+        );
+
+        // calculate damage dealt on target
+        attacker.status.damageDealt = this.calculateDamage(
+            attacker,
+            defender,
+            attackerMove
+        );
+
+        // apply damage on target's hp
+        defender.status.currentHp =
+            defender.status.currentHp - attacker.status.damageDealt;
+
+        // get damage percentage to display on screen
+        this.calculatePercentage(defender);
+    }
+
+    // ---------------------------- //
+    // BATTLE CALCULATION FUNCTIONS //
+    // ---------------------------- //
+
+    calculatePercentage(pokemon: Fighter) {
+        let remainingHp = (100 * pokemon.status.currentHp) / pokemon.stats.hp;
+
+        if (remainingHp < 50 && remainingHp > 20) {
+            pokemon.status.currentHpColor = this.colors.yellow;
+        }
+
+        if (remainingHp < 20) {
+            pokemon.status.currentHpColor = this.colors.red;
+        }
+
+        pokemon.status.currentHpPercentage = remainingHp;
+    }
+
+    calculateDamage(attacker: Fighter, defender: Fighter, move: Move) {
+        let stabMultiplier: number = 1;
+
+        if (attacker.types.find((type) => type === move.type)) {
+            stabMultiplier = 1.25;
+        }
+
+        let typeMultiplier: number = this.calculateTypeEffectiveness(
+            move,
+            defender
+        );
+
+        console.log(`${attacker.name} attacked ${defender.name}`);
+        console.log("type multiplier: " + typeMultiplier);
+
+        let damage = Math.round(
+            0.5 *
+                move.power *
+                (attacker.stats.attack / defender.stats.defense) *
+                typeMultiplier *
+                stabMultiplier
+        );
+
+        console.log(`${attacker.name} dealt ${damage} damage`);
+
+        return damage;
+    }
+
+    calculateTypeEffectiveness(move: Move, defender: Fighter) {
+        return defender.types.reduce((acc, type) => {
+            return acc * typeEffectiveness[move.type][type];
+        }, 1);
+    }
+
+    // ---------------------------- //
+    // TEXT DISPLAY FUNCTIONS       //
+    // ---------------------------- //
+
+    handleOptionSelect(id: number) {
+        switch (id) {
+            // fight
+            case 1:
+                this.battlePhase = 2;
+                break;
+            // bag
+            case 2:
+                this.battlePhase = 3;
+                this.battleInfoText = this.getBattleInfoText(11);
+
+                setTimeout(() => {
+                    this.setInitialState();
+                }, this.waitTime);
+                break;
+            // pokemon
+            case 3:
+                this.battlePhase = 3;
+                this.battleInfoText = this.getBattleInfoText(
+                    12,
+                    this.playerPokemon.name
+                );
+
+                setTimeout(() => {
+                    this.setInitialState();
+                }, this.waitTime);
+                break;
+            // run
+            case 4:
+                this.battlePhase = 3;
+                this.battleInfoText = this.getBattleInfoText(13);
+
+                setTimeout(() => {
+                    this.setInitialState();
+                }, this.waitTime);
+                break;
+            default:
+                break;
+        }
     }
 
     getBattleInfoText(
@@ -123,217 +326,11 @@ export class BattleComponent implements OnInit {
         return info;
     }
 
-    handleMoveSelect(playerMove: Move) {
-        console.log(
-            `player move:  ${playerMove.name}, power:  ${playerMove.power}`
-        );
+    // ---------------------------- //
+    // DATA FORMATTING FUNCTIONS    //
+    // ---------------------------- //
 
-        // enemy select a move
-        let enemyMove = this.handleEnemyMove();
-
-        this.enterBattlePhase(playerMove, enemyMove);
-    }
-
-    calculatePercentage(pokemon: Fighter) {
-        let remainingHp = (100 * pokemon.status.currentHp) / pokemon.stats.hp;
-
-        if (remainingHp < 50 && remainingHp > 20) {
-            pokemon.status.currentHpColor = this.colors.yellow;
-        }
-
-        if (remainingHp < 20) {
-            pokemon.status.currentHpColor = this.colors.red;
-        }
-
-        pokemon.status.currentHpPercentage = remainingHp;
-    }
-
-    enterBattlePhase(playerMove: Move, enemyMove: Move) {
-        let firstAttacker,
-            firstAttackerMove,
-            secondAttacker,
-            secondAttackerMove;
-
-        // decide who attacks first
-        if (this.playerPokemon.stats.speed >= this.enemyPokemon.stats.speed) {
-            firstAttacker = this.playerPokemon;
-            firstAttackerMove = playerMove;
-            secondAttacker = this.enemyPokemon;
-            secondAttackerMove = enemyMove;
-        } else {
-            firstAttacker = this.enemyPokemon;
-            firstAttackerMove = enemyMove;
-            secondAttacker = this.playerPokemon;
-            secondAttackerMove = playerMove;
-        }
-
-        // first attack!
-        firstAttacker.status.startAttack = true;
-
-        let firstAttackerMoveEffectiveness = this.calculateTypeEffectiveness(
-            firstAttackerMove,
-            secondAttacker
-        );
-
-        this.battlePhase = 3;
-        this.battleInfoText = this.getBattleInfoText(
-            2,
-            firstAttacker.name,
-            firstAttackerMove.name,
-            firstAttackerMoveEffectiveness
-        );
-
-        firstAttacker.status.currentAttackEffectiveness = this.getBattleInfoText(
-            0,
-            null,
-            null,
-            firstAttackerMoveEffectiveness
-        );
-
-        firstAttacker.status.damageDealt = this.calculateDamage(
-            firstAttacker,
-            secondAttacker,
-            firstAttackerMove
-        );
-
-        secondAttacker.status.currentHp =
-            secondAttacker.status.currentHp - firstAttacker.status.damageDealt;
-
-        this.calculatePercentage(secondAttacker);
-
-        // second attack!
-        setTimeout(() => {
-            firstAttacker.status.startAttack = false;
-            secondAttacker.status.startAttack = true;
-
-            let secondAttackerMoveEffectiveness = this.calculateTypeEffectiveness(
-                secondAttackerMove,
-                firstAttacker
-            );
-
-            this.battleInfoText = this.getBattleInfoText(
-                2,
-                secondAttacker.name,
-                secondAttackerMove.name,
-                secondAttackerMoveEffectiveness
-            );
-
-            secondAttacker.status.currentAttackEffectiveness = this.getBattleInfoText(
-                0,
-                null,
-                null,
-                secondAttackerMoveEffectiveness
-            );
-
-            secondAttacker.status.damageDealt = this.calculateDamage(
-                secondAttacker,
-                firstAttacker,
-                secondAttackerMove
-            );
-
-            firstAttacker.status.currentHp =
-                firstAttacker.status.currentHp -
-                secondAttacker.status.damageDealt;
-
-            this.calculatePercentage(firstAttacker);
-
-            setTimeout(() => {
-                secondAttacker.status.startAttack = false;
-                this.setInitialState();
-            }, this.waitTime);
-        }, this.waitTime);
-
-        console.log(secondAttacker.status.currentHp);
-        console.log(this.playerPokemon.stats.hp);
-    }
-
-    handleEnemyMove() {
-        let randomMove = this.enemyPokemon.moves[
-            Math.floor(Math.random() * this.enemyPokemon.moves.length)
-        ];
-        console.log(
-            `enemy move:  ${randomMove.name}, power:  ${randomMove.power}`
-        );
-
-        return randomMove;
-    }
-
-    calculateDamage(attacker: Fighter, defender: Fighter, move: Move) {
-        let stabMultiplier: number = 1;
-
-        if (attacker.types.find((type) => type === move.type)) {
-            stabMultiplier = 1.25;
-        }
-
-        let typeMultiplier: number = this.calculateTypeEffectiveness(
-            move,
-            defender
-        );
-
-        console.log(`${attacker.name} attacked ${defender.name}`);
-        console.log("type multiplier: " + typeMultiplier);
-
-        let damage = Math.round(
-            0.5 *
-                move.power *
-                (attacker.stats.attack / defender.stats.defense) *
-                typeMultiplier *
-                stabMultiplier
-        );
-
-        console.log(`${attacker.name} dealt ${damage} damage`);
-
-        return damage;
-    }
-
-    calculateTypeEffectiveness(move: Move, defender: Fighter) {
-        return defender.types.reduce((acc, type) => {
-            return acc * typeEffectiveness[move.type][type];
-        }, 1);
-    }
-
-    handleOptionSelect(id: number) {
-        switch (id) {
-            // fight
-            case 1:
-                this.battlePhase = 2;
-                break;
-            // bag
-            case 2:
-                this.battlePhase = 3;
-                this.battleInfoText = this.getBattleInfoText(11);
-
-                setTimeout(() => {
-                    this.setInitialState();
-                }, this.waitTime);
-                break;
-            // pokemon
-            case 3:
-                this.battlePhase = 3;
-                this.battleInfoText = this.getBattleInfoText(
-                    12,
-                    this.playerPokemon.name
-                );
-
-                setTimeout(() => {
-                    this.setInitialState();
-                }, this.waitTime);
-                break;
-            case 4:
-                this.battlePhase = 3;
-                this.battleInfoText = this.getBattleInfoText(13);
-
-                setTimeout(() => {
-                    this.setInitialState();
-                }, this.waitTime);
-                break;
-            default:
-                break;
-        }
-    }
-
-    // format data
-
+    // format PokemonData instance to Fighter instance
     formatPokemonData(pokemon: PokemonData) {
         return {
             id: pokemon.id,
