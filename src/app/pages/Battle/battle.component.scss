@@ -247,6 +247,10 @@ section {
                         @media (max-width: 870px) {
                             font-size: 1.6rem;
                         }
+
+                        &:hover {
+                            transform: translateY(-1px);
+                        }
                     }
                 }
 

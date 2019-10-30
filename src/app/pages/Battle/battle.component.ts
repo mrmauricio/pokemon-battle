@@ -23,7 +23,8 @@ export class BattleComponent implements OnInit {
     battlePhases: number[] = [
         1, // option select
         2, // move select
-        3 // waiting
+        3, // waiting
+        4 // ended
     ];
 
     battleOptions: Text[] = [
@@ -125,16 +126,25 @@ export class BattleComponent implements OnInit {
         this.startAttack(firstAttacker, firstAttackerMove, secondAttacker);
 
         // second attack!
+
         setTimeout(() => {
             firstAttacker.status.startAttack = false;
 
-            this.startAttack(secondAttacker, secondAttackerMove, firstAttacker);
+            if (secondAttacker.status.isAlive) {
+                this.startAttack(
+                    secondAttacker,
+                    secondAttackerMove,
+                    firstAttacker
+                );
 
-            setTimeout(() => {
-                secondAttacker.status.startAttack = false;
+                setTimeout(() => {
+                    secondAttacker.status.startAttack = false;
 
-                this.setInitialState();
-            }, this.waitTime);
+                    if (firstAttacker.status.isAlive) {
+                        this.setInitialState();
+                    }
+                }, this.waitTime);
+            }
         }, this.waitTime);
     }
 
@@ -171,8 +181,25 @@ export class BattleComponent implements OnInit {
         );
 
         // apply damage on target's hp
-        defender.status.currentHp =
+        let appliedDamage =
             defender.status.currentHp - attacker.status.damageDealt;
+
+        if (appliedDamage <= 0) {
+            defender.status.currentHp = 0;
+            defender.status.isAlive = false;
+
+            let winner;
+
+            if (attacker === this.playerPokemon) {
+                winner = 21;
+            } else {
+                winner = 22;
+            }
+
+            this.battleInfoText = this.getBattleInfoText(winner);
+        } else {
+            defender.status.currentHp = appliedDamage;
+        }
 
         // get damage percentage to display on screen
         this.calculatePercentage(defender);
@@ -208,9 +235,6 @@ export class BattleComponent implements OnInit {
             defender
         );
 
-        console.log(`${attacker.name} attacked ${defender.name}`);
-        console.log("type multiplier: " + typeMultiplier);
-
         let damage = Math.round(
             0.5 *
                 move.power *
@@ -219,7 +243,16 @@ export class BattleComponent implements OnInit {
                 stabMultiplier
         );
 
-        console.log(`${attacker.name} dealt ${damage} damage`);
+        console.log(`--------------
+${attacker.name} attacked ${defender.name} and dealt ${damage} damage.
+--------------
+* MOVE POWER: ${move.power * 0.5}
+* ATTACK x DEFENSE: ${attacker.stats.attack} / ${
+            defender.stats.defense
+        } = ${attacker.stats.attack / defender.stats.defense}
+* TYPE MULTIPLIER: ${typeMultiplier}
+* STAB MULTIPLIER: ${stabMultiplier}
+--------------`);
 
         return damage;
     }
@@ -292,7 +325,9 @@ export class BattleComponent implements OnInit {
             { id: 7, name: `It does not affect the opponent...` },
             { id: 11, name: "You have no items on your bag" },
             { id: 12, name: `${pokemonName} is your only Pokémon` },
-            { id: 13, name: "Can't escape!" }
+            { id: 13, name: "Can't escape!" },
+            { id: 21, name: "YOU WON" },
+            { id: 22, name: "YOU LOST" }
         ];
 
         function getInfoName(id: number) {
