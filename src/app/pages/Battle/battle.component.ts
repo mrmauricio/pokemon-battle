@@ -188,15 +188,10 @@ export class BattleComponent implements OnInit {
             defender.status.currentHp = 0;
             defender.status.isAlive = false;
 
-            let winner;
-
-            if (attacker === this.playerPokemon) {
-                winner = 21;
-            } else {
-                winner = 22;
-            }
-
-            this.battleInfoText = this.getBattleInfoText(winner);
+            setTimeout(() => {
+                this.battleInfoText = this.getBattleInfoText(0);
+                this.battlePhase = 4;
+            }, this.waitTime);
         } else {
             defender.status.currentHp = appliedDamage;
         }
@@ -325,9 +320,7 @@ ${attacker.name} attacked ${defender.name} and dealt ${damage} damage.
             { id: 7, name: `It does not affect the opponent...` },
             { id: 11, name: "You have no items on your bag" },
             { id: 12, name: `${pokemonName} is your only Pokémon` },
-            { id: 13, name: "Can't escape!" },
-            { id: 21, name: "YOU WON" },
-            { id: 22, name: "YOU LOST" }
+            { id: 13, name: "Can't escape!" }
         ];
 
         function getInfoName(id: number) {

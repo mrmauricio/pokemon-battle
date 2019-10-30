@@ -184,6 +184,94 @@ section {
                 }
             }
 
+            #modal-winner {
+                position: absolute;
+                top: calc(50% - 13.5rem);
+                left: calc(50% - 15rem);
+
+                height: 27rem;
+                width: 30rem;
+            }
+
+            #modal-loser {
+                position: absolute;
+                top: calc(50% - 10rem);
+                left: calc(50% - 15rem);
+
+                height: 20rem;
+                width: 30rem;
+
+                > div {
+                    > div {
+                        display: flex;
+                        flex-direction: column;
+
+                        a {
+                            margin-top: 0.5rem;
+                        }
+                    }
+                }
+            }
+
+            // modal
+            .modal {
+                visibility: hidden;
+                opacity: 0;
+                z-index: 2;
+                background: white;
+                padding: 1rem;
+                border: 0.3rem #000 solid;
+                border-radius: 8px;
+
+                > div {
+                    height: 100%;
+
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-evenly;
+
+                    strong {
+                        font-size: 2rem;
+                    }
+
+                    > div {
+                        display: flex;
+                        align-items: center;
+
+                        #modal-pokemon {
+                            width: 10rem;
+                            height: 10rem;
+                        }
+
+                        #modal-trophy {
+                            width: 3rem;
+                            height: 3rem;
+                        }
+                    }
+
+                    > p {
+                        font-size: 1.3rem;
+                        text-align: justify;
+                        text-justify: inter-word;
+                        margin: 0 0.5rem 1rem;
+                    }
+
+                    a {
+                        color: #ff0000;
+                        text-decoration: none;
+                        padding: 0.25rem;
+                        font-size: 1.3rem;
+                        border-radius: 8px;
+
+                        &:hover {
+                            transform: translateY(-1px);
+                            background-color: rgba(255, 0, 0, 0.1);
+                        }
+                    }
+                }
+            }
+
             // attack animation
             .sprite-attack {
                 animation: attack 1s 2 alternate;
@@ -196,6 +284,25 @@ section {
                 100% {
                     transform: translateY(-1rem) scale(1.1);
                 }
+            }
+
+            // hide
+            .hidden {
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0s 2s, opacity 2s linear;
+            }
+
+            // show
+            .visible {
+                visibility: visible;
+                opacity: 1;
+                transition: opacity 2s linear;
+            }
+
+            .darken {
+                filter: brightness(70%);
+                transition: filter 2s;
             }
         }
 

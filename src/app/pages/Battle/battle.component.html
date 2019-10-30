@@ -1,14 +1,22 @@
 <section>
     <div>
         <div class="battle-background">
-            <img id="bg" src="assets/images/battle-background.jpeg" alt="bg" />
+            <img
+                id="bg"
+                src="assets/images/battle-background.jpeg"
+                [class.darken]="battlePhase === 4"
+                alt="bg"
+            />
             <img
                 id="player-sprite"
+                [class.hidden]="
+                    !playerPokemon.status.isAlive || battlePhase === 4
+                "
                 [class.sprite-attack]="playerPokemon.status.startAttack"
                 [src]="playerPokemon.sprites.back_default"
                 [alt]="playerPokemon.name"
             />
-            <div id="player-info">
+            <div id="player-info" [class.hidden]="battlePhase === 4">
                 <strong>{{ playerPokemon.name }}</strong>
                 <div>
                     <div class="hp-bar">
@@ -36,11 +44,14 @@
             </div>
             <img
                 id="enemy-sprite"
+                [class.hidden]="
+                    !enemyPokemon.status.isAlive || battlePhase === 4
+                "
                 [class.sprite-attack]="enemyPokemon.status.startAttack"
                 [src]="enemyPokemon.sprites.front_default"
                 [alt]="enemyPokemon.name"
             />
-            <div id="enemy-info">
+            <div id="enemy-info" [class.hidden]="battlePhase === 4">
                 <strong>{{ enemyPokemon.name }}</strong>
                 <div>
                     <div class="hp-bar">
@@ -66,14 +77,69 @@
                 <div>-{{ playerPokemon.status.damageDealt }} HP</div>
                 <div>{{ playerPokemon.status.currentAttackEffectiveness }}</div>
             </div>
+            <div
+                *ngIf="!playerPokemon.status.isAlive"
+                id="modal-loser"
+                class="modal"
+                [class.visible]="battlePhase === 4"
+            >
+                <div>
+                    <strong>YOU LOST!</strong>
+                    <div>
+                        <a routerLink="/pokemon/{{ playerPokemon.id }}"
+                            >Fight again with {{ playerPokemon.name }}</a
+                        >
+                        <a routerLink="/">Change fighter</a>
+                    </div>
+                </div>
+            </div>
+            <div
+                *ngIf="!enemyPokemon.status.isAlive"
+                id="modal-winner"
+                class="modal"
+                [class.visible]="battlePhase === 4"
+            >
+                <div>
+                    <strong>YOU WON!</strong>
+                    <div>
+                        <img
+                            id="modal-pokemon"
+                            [src]="playerPokemon.sprites.front_default"
+                            [alt]="playerPokemon.name"
+                        />
+                        <img
+                            id="modal-trophy"
+                            src="assets/images/trophy.png"
+                            alt="trophy"
+                        />
+                        <span>x 1</span>
+                    </div>
+                    <p>
+                        {{ playerPokemon.name }} won one trophy for this battle!
+                        Get five with the same Pokémon to see something special
+                        happen.
+                    </p>
+
+                    <a routerLink="/pokemon/{{ playerPokemon.id }}"
+                        >Fight again with {{ playerPokemon.name }}</a
+                    >
+                    <a routerLink="/">Change fighter</a>
+                </div>
+            </div>
         </div>
         <div class="battle-menu">
-            <div *ngIf="battlePhase === 3" class="battle-info">
+            <div
+                *ngIf="battlePhase === 3 || battlePhase === 4"
+                class="battle-info"
+            >
                 <span>
                     {{ battleInfoText }}
                 </span>
             </div>
-            <div *ngIf="battlePhase !== 3" class="battle-options">
+            <div
+                *ngIf="battlePhase === 1 || battlePhase === 2"
+                class="battle-options"
+            >
                 <div class="battle-left-options">
                     <span *ngIf="battlePhase === 1">
                         {{ battleInfoText }}

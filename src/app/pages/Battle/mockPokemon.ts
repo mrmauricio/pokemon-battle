@@ -18,7 +18,7 @@ export const mockPokemon = {
     moves: [
         {
             name: "air slash",
-            power: 75,
+            power: 275,
             text:
                 "The user attacks with a blade of air that slices even↵the sky. This may also make the target flinch.",
             type: "flying"
@@ -73,7 +73,7 @@ export const mockPokemon2 = {
     moves: [
         {
             name: "air slash",
-            power: 75,
+            power: 12375,
             text:
                 "The user attacks with a blade of air that slices even↵the sky. This may also make the target flinch.",
             type: "flying"
