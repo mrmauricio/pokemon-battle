@@ -16,7 +16,7 @@ export class PokemonData {
     stats: Stats;
 }
 
-class Sprites {
+export class Sprites {
     front_default: string;
     back_default: string;
     front_shiny: string;

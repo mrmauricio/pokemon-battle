@@ -4,6 +4,7 @@
             <img id="bg" src="assets/images/battle-background.jpeg" alt="bg" />
             <img
                 id="player-sprite"
+                [class.sprite-attack]="playerPokemon.status.startAttack"
                 [src]="playerPokemon.sprites.back_default"
                 [alt]="playerPokemon.name"
             />
@@ -11,15 +12,31 @@
                 <strong>{{ playerPokemon.name }}</strong>
                 <div>
                     <div class="hp-bar">
-                        <div></div>
+                        <div
+                            [style.width]="
+                                playerPokemon.status.currentHpPercentage + '%'
+                            "
+                            [style.background-color]="
+                                playerPokemon.status.currentHpColor
+                            "
+                        ></div>
                     </div>
                 </div>
                 <small>
-                    200/200
+                    {{ playerPokemon.status.currentHp }} /
+                    {{ playerPokemon.stats.hp }}
                 </small>
+            </div>
+            <div
+                *ngIf="enemyPokemon.status.startAttack"
+                id="player-damage-taken"
+            >
+                <div>-{{ enemyPokemon.status.damageDealt }} HP</div>
+                <div>{{ enemyPokemon.status.currentAttackEffectiveness }}</div>
             </div>
             <img
                 id="enemy-sprite"
+                [class.sprite-attack]="enemyPokemon.status.startAttack"
                 [src]="enemyPokemon.sprites.front_default"
                 [alt]="enemyPokemon.name"
             />
@@ -27,10 +44,27 @@
                 <strong>{{ enemyPokemon.name }}</strong>
                 <div>
                     <div class="hp-bar">
-                        <div></div>
+                        <div
+                            [style.width]="
+                                enemyPokemon.status.currentHpPercentage + '%'
+                            "
+                            [style.background]="
+                                enemyPokemon.status.currentHpColor
+                            "
+                        ></div>
                     </div>
                 </div>
-                <small> 200/200</small>
+                <small>
+                    {{ enemyPokemon.status.currentHp }} /
+                    {{ enemyPokemon.stats.hp }}
+                </small>
+            </div>
+            <div
+                *ngIf="playerPokemon.status.startAttack"
+                id="enemy-damage-taken"
+            >
+                <div>-{{ playerPokemon.status.damageDealt }} HP</div>
+                <div>{{ playerPokemon.status.currentAttackEffectiveness }}</div>
             </div>
         </div>
         <div class="battle-menu">

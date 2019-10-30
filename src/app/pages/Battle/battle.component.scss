@@ -52,16 +52,15 @@ section {
                     height: 1rem;
                     width: 100%;
                     margin: 0.5rem 0 0.25rem;
-
                     border: 1px #000 solid;
-
-                    border-radius: 8px;
+                    border-radius: 5px;
+                    background-color: #eeeeee;
 
                     div {
-                        width: 100%;
                         height: 100%;
-                        background: rgba(0, 155, 0, 0.6);
-                        border-radius: 8px;
+                        border-radius: 5px;
+                        border-right: 1px solid rgb(146, 146, 146);
+                        border-left: 1px solid rgb(146, 146, 146);
                     }
                 }
 
@@ -86,6 +85,34 @@ section {
                 height: 13rem;
             }
 
+            #player-damage-taken {
+                position: absolute;
+                left: 24%;
+                bottom: 49%;
+            }
+
+            #enemy-damage-taken {
+                position: absolute;
+                left: 61%;
+                top: 15%;
+            }
+
+            #player-damage-taken,
+            #enemy-damage-taken {
+                position: absolute;
+                z-index: 1;
+                font-size: 1.4rem;
+                font-weight: bold;
+                color: #fff;
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black,
+                    0 -1px black;
+
+                div:first-child {
+                    font-size: 1.6rem;
+                    margin-bottom: 0.1rem;
+                }
+            }
+
             @media (max-width: 1010px) {
                 #player-sprite,
                 #enemy-sprite {
@@ -97,6 +124,12 @@ section {
                 #enemy-info {
                     width: 18rem;
                     font-size: 1.4rem;
+                }
+
+                #player-damage-taken {
+                    position: absolute;
+                    left: 23%;
+                    bottom: 47%;
                 }
             }
 
@@ -125,14 +158,46 @@ section {
                     width: 14rem;
                     font-size: 1.3rem;
                 }
+
+                #enemy-damage-taken {
+                    position: absolute;
+                    left: 61%;
+                    top: 13%;
+                }
+
+                #player-damage-taken,
+                #enemy-damage-taken {
+                    font-size: 1.2rem;
+
+                    div:first-child {
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+
+            .sprite-attack {
+                animation: attack 1s 2 alternate;
+            }
+
+            @keyframes attack {
+                0% {
+                    transform: translateY(0) scale(1);
+                }
+                100% {
+                    transform: translateY(-1rem) scale(1.1);
+                }
             }
         }
 
         .battle-menu {
             border: 0.5rem #000 double;
             border-radius: 0.5rem;
-            height: 9rem;
+            height: 8rem;
             font-size: 1.8rem;
+
+            @media (max-width: 870px) {
+                font-size: 1.6rem;
+            }
 
             .battle-info {
                 height: 100%;
@@ -163,6 +228,10 @@ section {
                         border: none;
                         text-align: start;
                         outline-color: #ff0000;
+
+                        @media (max-width: 870px) {
+                            font-size: 1.6rem;
+                        }
                     }
                 }
 

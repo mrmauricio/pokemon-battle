@@ -120,6 +120,8 @@ export class PokemonService {
         delete statArray["special-attack"];
         delete statArray["special-defense"];
 
+        statArray.hp = 200 + statArray.hp * 2;
+
         //console.log(statArray);
 
         return statArray;
