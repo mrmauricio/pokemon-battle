@@ -9,8 +9,17 @@ import { PokemonPreview } from "./../../classes/pokemon";
 })
 export class PokemonCardComponent implements OnInit {
     @Input() pokemon: PokemonPreview;
+    @Input() trophyAmount: number;
+
+    trophyArray: number[];
 
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.trophyArray = [...Array(this.trophyAmount).keys()].map(
+            (id) => id + 1
+        );
+
+        console.log(`${this.pokemon.id} - ${this.trophyAmount}`);
+    }
 }

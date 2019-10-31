@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { PokemonService } from "../../services/pokemon.service";
+import { TrophyService } from "./../../services/trophy.service";
 
 import { MainPageSection, Button } from "../../classes/main-page-section";
 import { fightersIdList } from "../../utils/fightersIdList";
@@ -21,6 +22,8 @@ export class MainComponent implements OnInit {
     // initial IDs to fetch
     fightersIdList = fightersIdList;
     pokedexList: number[] = [...Array(12).keys()].map((id) => id + 1);
+
+    trophyList;
 
     buttons: Button[] = [
         {
@@ -78,10 +81,14 @@ export class MainComponent implements OnInit {
 
     constructor(
         private pokemonService: PokemonService,
-        private router: Router
+        private router: Router,
+        private trophyService: TrophyService
     ) {}
 
     ngOnInit() {
+        // if there's no data on local storage, set initial values
+        this.handleTrophies();
+
         // fetch first section data:
         this.fetchPokemonByIdList(this.fightersIdList, 1, false);
 
@@ -155,6 +162,14 @@ export class MainComponent implements OnInit {
         }
 
         this.router.navigate(["/pokemon", randomPokemonId]);
+    }
+
+    handleTrophies() {
+        this.trophyList = this.trophyService.getTrophyList();
+
+        if (!this.trophyList) {
+            this.trophyList = this.trophyService.setInitialTrophyList();
+        }
     }
 
     getButtonById(id: number) {

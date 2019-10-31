@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { PokemonService } from "./../../services/pokemon.service";
+import { TrophyService } from "./../../services/trophy.service";
 
 import { fightersIdList } from "../../utils/fightersIdList";
 
@@ -29,6 +30,8 @@ export class PokemonComponent implements OnInit {
     isLoading: boolean = true;
     isBattleLoading: boolean = false;
     error: boolean = false;
+    trophyList;
+    trophyArray: number[];
     // font awesome icons
     faBolt = faBolt;
     faAngleDoubleUp = faAngleDoubleUp;
@@ -43,12 +46,15 @@ export class PokemonComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private pokemonService: PokemonService,
-        private router: Router
+        private router: Router,
+        private trophyService: TrophyService
     ) {
         this.configSameComponentNavigation();
     }
 
     async ngOnInit() {
+        this.handleTrophies();
+
         this.checkFighterId();
 
         await this.getPokemonData();
@@ -120,6 +126,17 @@ export class PokemonComponent implements OnInit {
         this.router.navigateByUrl("/battle", {
             state: { playerPokemon: this.pokemon, enemyPokemon }
         });
+    }
+
+    handleTrophies() {
+        // get trophies from local storage
+        this.trophyList = this.trophyService.getTrophyList();
+
+        if (!this.trophyList) {
+            this.trophyList = this.trophyService.setInitialTrophyList();
+        }
+
+        this.trophyArray = [...Array(6).keys()].map((id) => id + 1);
     }
 
     configSameComponentNavigation() {

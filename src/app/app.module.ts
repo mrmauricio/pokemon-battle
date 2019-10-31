@@ -11,8 +11,6 @@ import { NotFoundComponent } from "./pages/NotFound/not-found.component";
 import { HeaderComponent } from "./components/Header/header.component";
 import { FooterComponent } from "./components/Footer/footer.component";
 
-import { PokemonService } from "./services/pokemon.service";
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -27,7 +25,6 @@ import { PokemonService } from "./services/pokemon.service";
         MainModule,
         FontAwesomeModule
     ],
-    providers: [PokemonService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

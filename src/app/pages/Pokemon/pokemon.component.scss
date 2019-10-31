@@ -285,6 +285,24 @@ section {
                 }
             }
 
+            #trophies-list {
+                width: 100%;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    width: 3rem;
+                    height: 3rem;
+                }
+
+                .trophy-missing {
+                    opacity: 0.25;
+                    filter: brightness(20%);
+                }
+            }
+
             li {
                 list-style: none;
             }
@@ -337,6 +355,11 @@ section {
                         }
                     }
                 }
+
+                #trophies-list img {
+                    width: 4rem;
+                    height: 4rem;
+                }
             }
         }
     }
@@ -368,6 +391,11 @@ section {
                     ul li span {
                         width: 70%;
                     }
+                }
+
+                #trophies-list img {
+                    width: 5rem;
+                    height: 5rem;
                 }
             }
         }

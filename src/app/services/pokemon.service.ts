@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { PokemonPreview, PokemonData, Move, Stats } from "../classes/pokemon";
+
 import { movesIdList } from "./../utils/movesIdList";
 
 @Injectable({
@@ -11,6 +12,10 @@ export class PokemonService {
     constructor(private http: HttpClient) {}
 
     private baseUrl: string = "https://pokeapi.co/api/v2";
+
+    // ---------------------------- //
+    // GET POKEMON PREVIEW          //
+    // ---------------------------- //
 
     async getPokemonByIdList(idArray: number[]) {
         const pokeArray = await Promise.all(
@@ -36,6 +41,10 @@ export class PokemonService {
 
         return pokemonPreview;
     }
+
+    // ---------------------------- //
+    // GET POKEMON DATA & MOVES     //
+    // ---------------------------- //
 
     async getPokemonDataById(id: number, isFighter: boolean) {
         const data: any = await this.http
@@ -103,10 +112,11 @@ export class PokemonService {
     }
 
     formatStats(stats) {
-        let statArray = stats.reduce((acc, s) => {
-            acc[s.stat.name] = s.base_stat;
+        // creating a object with stat name as property
+        let statArray = stats.reduce((newObj, s) => {
+            newObj[s.stat.name] = s.base_stat;
 
-            return acc;
+            return newObj;
         }, {});
 
         if (statArray["attack"] < statArray["special-attack"]) {

@@ -163,6 +163,16 @@
                         <span>Start Battle</span>
                     </button>
                 </div>
+
+                <div id="trophies-list">
+                    <ng-container *ngFor="let item of trophyArray">
+                        <img
+                            [class.trophy-missing]="item > trophyList[id]"
+                            src="assets/images/trophy.png"
+                            alt="trophy"
+                        />
+                    </ng-container>
+                </div>
             </div>
         </div>
     </div>

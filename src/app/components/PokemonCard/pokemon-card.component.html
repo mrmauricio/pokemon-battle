@@ -1,12 +1,21 @@
 <article>
     <a routerLink="/pokemon/{{ pokemon.id }}">
         <h2>#{{ pokemon.id }} {{ pokemon.name | titlecase }}</h2>
-        <img [src]="pokemon.sprite" [alt]="pokemon.name" />
+        <img id="pokemon" [src]="pokemon.sprite" [alt]="pokemon.name" />
         <div>
             <span *ngFor="let type of pokemon.types; let i = index">
                 <span *ngIf="i === 1">/</span>
                 {{ type | uppercase }}
             </span>
         </div>
+        <ng-container *ngFor="let item of trophyArray">
+            <img
+                *ngIf="item <= trophyAmount"
+                class="trophy"
+                id="trophy-{{ item }}"
+                src="assets/images/trophy.png"
+                alt="trophy"
+            />
+        </ng-container>
     </a>
 </article>

@@ -22,10 +22,14 @@
                 section.buttonList.isLoading
             "
         >
-            <app-pokemon-card
-                *ngFor="let pokemon of section.pokemonList"
-                [pokemon]="pokemon"
-            ></app-pokemon-card>
+            <ng-container>
+                <app-pokemon-card
+                    *ngFor="let pokemon of section.pokemonList"
+                    [pokemon]="pokemon"
+                    [trophyAmount]="trophyList[pokemon.id]"
+                ></app-pokemon-card>
+            </ng-container>
+
             <div
                 *ngIf="
                     section.buttonList.buttons.length > 0 &&

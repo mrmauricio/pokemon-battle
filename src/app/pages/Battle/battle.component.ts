@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
+import { TrophyService } from "./../../services/trophy.service";
+
 import { PokemonData, Move } from "./../../classes/pokemon";
 import { Text, Fighter, Colors } from "./../../classes/battle";
 
@@ -40,7 +42,7 @@ export class BattleComponent implements OnInit {
         red: "#d95f5f"
     };
 
-    constructor(private router: Router) {}
+    constructor(private router: Router, private trophyService: TrophyService) {}
 
     // ---------------------------- //
     // INITIAL CONFIG FUNCTIONS     //
@@ -189,8 +191,7 @@ export class BattleComponent implements OnInit {
             defender.status.isAlive = false;
 
             setTimeout(() => {
-                this.battleInfoText = this.getBattleInfoText(0);
-                this.battlePhase = 4;
+                this.handleBattleEnd(attacker);
             }, this.waitTime);
         } else {
             defender.status.currentHp = appliedDamage;
@@ -198,6 +199,18 @@ export class BattleComponent implements OnInit {
 
         // get damage percentage to display on screen
         this.calculatePercentage(defender);
+    }
+
+    handleBattleEnd(winner: Fighter) {
+        this.battleInfoText = this.getBattleInfoText(0);
+
+        this.battlePhase = 4;
+
+        if (winner === this.playerPokemon) {
+            this.trophyService.addTrophyById(winner.id);
+        }
+
+        console.log(this.trophyService.getTrophyList());
     }
 
     // ---------------------------- //
