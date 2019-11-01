@@ -20,6 +20,6 @@ export class PokemonCardComponent implements OnInit {
             (id) => id + 1
         );
 
-        console.log(`${this.pokemon.id} - ${this.trophyAmount}`);
+        //console.log(`${this.pokemon.id} - ${this.trophyAmount}`);
     }
 }

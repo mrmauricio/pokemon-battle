@@ -13,7 +13,11 @@
                     !playerPokemon.status.isAlive || battlePhase === 4
                 "
                 [class.sprite-attack]="playerPokemon.status.startAttack"
-                [src]="playerPokemon.sprites.back_default"
+                [src]="
+                    playerTrophyAmount !== 6
+                        ? playerPokemon.sprites.back_default
+                        : playerPokemon.sprites.back_shiny
+                "
                 [alt]="playerPokemon.name"
             />
             <div id="player-info" [class.hidden]="battlePhase === 4">
@@ -48,7 +52,11 @@
                     !enemyPokemon.status.isAlive || battlePhase === 4
                 "
                 [class.sprite-attack]="enemyPokemon.status.startAttack"
-                [src]="enemyPokemon.sprites.front_default"
+                [src]="
+                    enemyTrophyAmount !== 6
+                        ? enemyPokemon.sprites.front_default
+                        : enemyPokemon.sprites.front_shiny
+                "
                 [alt]="enemyPokemon.name"
             />
             <div id="enemy-info" [class.hidden]="battlePhase === 4">
@@ -86,10 +94,10 @@
                 <div>
                     <strong>YOU LOST!</strong>
                     <div>
-                        <a routerLink="/pokemon/{{ playerPokemon.id }}"
-                            >Fight again with {{ playerPokemon.name }}</a
-                        >
-                        <a routerLink="/">Change fighter</a>
+                        <a routerLink="/pokemon/{{ playerPokemon.id }}">
+                            <span>Try again</span>
+                        </a>
+                        <a routerLink="/"><span>Change fighter</span></a>
                     </div>
                 </div>
             </div>
@@ -103,27 +111,16 @@
                     <strong>YOU WON!</strong>
                     <div>
                         <img
-                            id="modal-pokemon"
-                            [src]="playerPokemon.sprites.front_default"
-                            [alt]="playerPokemon.name"
-                        />
-                        <img
                             id="modal-trophy"
                             src="assets/images/trophy.png"
                             alt="trophy"
                         />
-                        <span>x 1</span>
                     </div>
-                    <p>
-                        {{ playerPokemon.name }} won one trophy for this battle!
-                        Get six with the same Pokémon to see something special
-                        happen.
-                    </p>
 
-                    <a routerLink="/pokemon/{{ playerPokemon.id }}"
-                        >Fight again with {{ playerPokemon.name }}</a
-                    >
-                    <a routerLink="/">Change fighter</a>
+                    <a routerLink="/pokemon/{{ playerPokemon.id }}">
+                        <span>Fight again!</span>
+                    </a>
+                    <a routerLink="/"><span>Change fighter</span></a>
                 </div>
             </div>
         </div>

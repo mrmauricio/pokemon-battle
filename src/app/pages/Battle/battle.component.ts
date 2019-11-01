@@ -21,6 +21,8 @@ export class BattleComponent implements OnInit {
     battlePhase: number;
     battleInfoText: string;
     waitTime: number = 2500;
+    playerTrophyAmount: number = history.state.playerTrophyAmount;
+    enemyTrophyAmount: number = history.state.enemyTrophyAmount;
 
     battlePhases: number[] = [
         1, // option select
@@ -209,8 +211,6 @@ export class BattleComponent implements OnInit {
         if (winner === this.playerPokemon) {
             this.trophyService.addTrophyById(winner.id);
         }
-
-        console.log(this.trophyService.getTrophyList());
     }
 
     // ---------------------------- //
@@ -244,7 +244,7 @@ export class BattleComponent implements OnInit {
         );
 
         let damage = Math.round(
-            0.5 *
+            0.75 *
                 move.power *
                 (attacker.stats.attack / defender.stats.defense) *
                 typeMultiplier *

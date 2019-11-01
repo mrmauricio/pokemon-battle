@@ -30,14 +30,15 @@ export class PokemonService {
             .get(`${this.baseUrl}/pokemon/${id}`)
             .toPromise();
 
-        //console.log(data);
-
         const pokemonPreview: PokemonPreview = {
             id: data.id,
             sprite: data.sprites.front_default,
+            spriteShiny: data.sprites.front_shiny,
             name: data.name,
             types: data.types.map((t) => t.type.name).reverse()
         };
+
+        //console.log(pokemonPreview);
 
         return pokemonPreview;
     }

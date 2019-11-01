@@ -289,17 +289,33 @@ section {
                 width: 100%;
 
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
 
-                img {
-                    width: 3rem;
-                    height: 3rem;
+                padding-top: 2rem;
+                margin-top: 1rem;
+                border-top: 0.1rem solid #eee;
+
+                > div {
+                    img {
+                        width: 3rem;
+                        height: 3rem;
+                    }
+
+                    .trophy-missing {
+                        opacity: 0.25;
+                        filter: brightness(20%);
+                    }
                 }
 
-                .trophy-missing {
-                    opacity: 0.25;
-                    filter: brightness(20%);
+                small {
+                    font-size: 1.1rem;
+                    text-align: center;
+
+                    &:last-child {
+                        margin-top: 1.5rem;
+                    }
                 }
             }
 
@@ -356,7 +372,7 @@ section {
                     }
                 }
 
-                #trophies-list img {
+                #trophies-list > div img {
                     width: 4rem;
                     height: 4rem;
                 }
@@ -393,7 +409,7 @@ section {
                     }
                 }
 
-                #trophies-list img {
+                #trophies-list > div img {
                     width: 5rem;
                     height: 5rem;
                 }

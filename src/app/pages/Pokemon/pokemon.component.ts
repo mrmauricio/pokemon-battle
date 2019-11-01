@@ -75,8 +75,6 @@ export class PokemonComponent implements OnInit {
                 this.isFighter
             );
 
-            console.log(this.pokemon);
-
             this.isLoading = false;
             this.error = false;
         } catch (e) {
@@ -124,7 +122,12 @@ export class PokemonComponent implements OnInit {
 
         // time to battle!
         this.router.navigateByUrl("/battle", {
-            state: { playerPokemon: this.pokemon, enemyPokemon }
+            state: {
+                playerPokemon: this.pokemon,
+                enemyPokemon,
+                playerTrophyAmount: this.trophyList[this.id],
+                enemyTrophyAmount: this.trophyList[enemyPokemon.id]
+            }
         });
     }
 

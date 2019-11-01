@@ -1,6 +1,7 @@
 export class PokemonPreview {
     id: number;
     sprite: string;
+    spriteShiny: string;
     name: string;
     types: Object[];
 }

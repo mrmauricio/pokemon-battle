@@ -186,20 +186,20 @@ section {
 
             #modal-winner {
                 position: absolute;
-                top: calc(50% - 13.5rem);
-                left: calc(50% - 15rem);
+                top: calc(50% - 12rem);
+                left: calc(50% - 12rem);
 
-                height: 27rem;
-                width: 30rem;
+                height: 24rem;
+                width: 24rem;
             }
 
             #modal-loser {
                 position: absolute;
                 top: calc(50% - 10rem);
-                left: calc(50% - 15rem);
+                left: calc(50% - 12rem);
 
                 height: 20rem;
-                width: 30rem;
+                width: 24rem;
 
                 > div {
                     > div {
@@ -207,7 +207,7 @@ section {
                         flex-direction: column;
 
                         a {
-                            margin-top: 0.5rem;
+                            margin-top: 0.7rem;
                         }
                     }
                 }
@@ -232,29 +232,14 @@ section {
                     justify-content: space-evenly;
 
                     strong {
-                        font-size: 2rem;
+                        font-size: 2.6rem;
                     }
 
                     > div {
-                        display: flex;
-                        align-items: center;
-
-                        #modal-pokemon {
-                            width: 10rem;
-                            height: 10rem;
-                        }
-
                         #modal-trophy {
-                            width: 3rem;
-                            height: 3rem;
+                            width: 9rem;
+                            height: 9rem;
                         }
-                    }
-
-                    > p {
-                        font-size: 1.3rem;
-                        text-align: justify;
-                        text-justify: inter-word;
-                        margin: 0 0.5rem 1rem;
                     }
 
                     a {
@@ -265,8 +250,12 @@ section {
                         border-radius: 8px;
 
                         &:hover {
-                            transform: translateY(-1px);
+                            transform: translateY(-2px);
                             background-color: rgba(255, 0, 0, 0.1);
+                        }
+
+                        span {
+                            padding: 0.5rem;
                         }
                     }
                 }

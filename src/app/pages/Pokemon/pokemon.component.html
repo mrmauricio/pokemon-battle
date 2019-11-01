@@ -164,14 +164,24 @@
                     </button>
                 </div>
 
-                <div id="trophies-list">
-                    <ng-container *ngFor="let item of trophyArray">
-                        <img
-                            [class.trophy-missing]="item > trophyList[id]"
-                            src="assets/images/trophy.png"
-                            alt="trophy"
-                        />
-                    </ng-container>
+                <div id="trophies-list" *ngIf="isFighter">
+                    <div>
+                        <ng-container *ngFor="let item of trophyArray">
+                            <img
+                                [class.trophy-missing]="item > trophyList[id]"
+                                src="assets/images/trophy.png"
+                                alt="trophy"
+                            />
+                        </ng-container>
+                    </div>
+                    <small> {{ trophyList[id] }} / 6</small>
+                    <small *ngIf="trophyList[id] !== 6">
+                        Win six trophies to see something special happen
+                    </small>
+                    <small *ngIf="trophyList[id] === 6">
+                        Congratulations! Enjoy your shiny
+                        {{ pokemon.name | titlecase }}!
+                    </small>
                 </div>
             </div>
         </div>
