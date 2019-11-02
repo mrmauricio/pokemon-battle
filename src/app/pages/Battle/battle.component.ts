@@ -21,6 +21,7 @@ export class BattleComponent implements OnInit {
     battlePhase: number;
     battleInfoText: string;
     waitTime: number = 2500;
+    battleMusic;
     playerTrophyAmount: number = history.state.playerTrophyAmount;
     enemyTrophyAmount: number = history.state.enemyTrophyAmount;
 
@@ -56,6 +57,9 @@ export class BattleComponent implements OnInit {
 
         // set initial battle phase and initial text
         this.setInitialState();
+
+        // start battle music
+        this.playAudio();
     }
 
     getFightersData() {
@@ -84,6 +88,10 @@ export class BattleComponent implements OnInit {
             1,
             this.playerPokemon.name
         );
+    }
+
+    ngOnDestroy() {
+        this.battleMusic.pause();
     }
 
     // ---------------------------- //
@@ -272,7 +280,7 @@ ${attacker.name} attacked ${defender.name} and dealt ${damage} damage.
     }
 
     // ---------------------------- //
-    // TEXT DISPLAY FUNCTIONS       //
+    //  DISPLAY FUNCTIONS       //
     // ---------------------------- //
 
     handleOptionSelect(id: number) {
@@ -365,6 +373,13 @@ ${attacker.name} attacked ${defender.name} and dealt ${damage} damage.
         }
 
         return info;
+    }
+
+    playAudio() {
+        this.battleMusic = new Audio();
+        this.battleMusic.src = "../../../assets/sounds/battle-song.mp3";
+        this.battleMusic.load();
+        this.battleMusic.play();
     }
 
     // ---------------------------- //
