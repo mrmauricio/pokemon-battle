@@ -377,7 +377,7 @@ ${attacker.name} attacked ${defender.name} and dealt ${damage} damage.
 
     playAudio() {
         this.battleMusic = new Audio();
-        this.battleMusic.src = "../../../assets/sounds/battle-song.mp3";
+        this.battleMusic.src = "../../../assets/sounds/battle-song.ogg";
         this.battleMusic.load();
         this.battleMusic.play();
     }

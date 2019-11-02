@@ -16,6 +16,7 @@ main {
             margin: 2rem 1rem 4rem;
 
             fa-icon {
+                display: block;
                 padding-right: 1rem;
                 font-size: 3rem;
             }
@@ -80,6 +81,12 @@ main {
             app-loading {
                 width: 100%;
             }
+        }
+    }
+
+    @media (min-width: 400px) {
+        section h1 fa-icon {
+            display: inline;
         }
     }
 
