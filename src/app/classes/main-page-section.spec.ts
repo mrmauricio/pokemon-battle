@@ -1,7 +1,7 @@
-import { Section } from "./main-page-section";
+import { MainPageSection } from "./main-page-section";
 
 describe("Section", () => {
     it("should create an instance", () => {
-        expect(new Section()).toBeTruthy();
+        expect(new MainPageSection()).toBeTruthy();
     });
 });

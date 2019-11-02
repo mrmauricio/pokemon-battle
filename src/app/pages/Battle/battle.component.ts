@@ -6,7 +6,7 @@ import { TrophyService } from "./../../services/trophy.service";
 import { PokemonData, Move } from "./../../classes/pokemon";
 import { Text, Fighter, Colors } from "./../../classes/battle";
 
-import { mockPokemon, mockPokemon2 } from "./mockPokemon";
+//import { mockPokemon, mockPokemon2 } from "./mockPokemon";
 import { typeEffectiveness } from "src/app/utils/typeEffectiveness";
 
 @Component({
@@ -72,9 +72,9 @@ export class BattleComponent implements OnInit {
 
             this.setInitialState();
         } else {
-            //this.router.navigateByUrl("/404");
-            this.playerPokemon = this.formatPokemonData(mockPokemon);
-            this.enemyPokemon = this.formatPokemonData(mockPokemon2);
+            this.router.navigateByUrl("/404");
+            //this.playerPokemon = this.formatPokemonData(mockPokemon);
+            //this.enemyPokemon = this.formatPokemonData(mockPokemon2);
         }
     }
 

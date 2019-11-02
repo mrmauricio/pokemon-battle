@@ -1,7 +1,7 @@
-import { Pokemon } from "./pokemon";
+import { PokemonPreview } from "./pokemon";
 
 describe("Pokemon", () => {
     it("should create an instance", () => {
-        expect(new Pokemon()).toBeTruthy();
+        expect(new PokemonPreview()).toBeTruthy();
     });
 });

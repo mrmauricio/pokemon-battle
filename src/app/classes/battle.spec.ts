@@ -1,7 +1,7 @@
-import { Battle } from './battle';
+import { Fighter } from "./battle";
 
-describe('Battle', () => {
-  it('should create an instance', () => {
-    expect(new Battle()).toBeTruthy();
-  });
+describe("Battle", () => {
+    it("should create an instance", () => {
+        expect(new Fighter()).toBeTruthy();
+    });
 });
