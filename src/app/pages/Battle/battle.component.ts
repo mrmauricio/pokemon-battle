@@ -77,6 +77,7 @@ export class BattleComponent implements OnInit {
             this.setInitialState();
         } else {
             this.router.navigateByUrl("/404");
+            // test:
             //this.playerPokemon = this.formatPokemonData(mockPokemon);
             //this.enemyPokemon = this.formatPokemonData(mockPokemon2);
         }

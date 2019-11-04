@@ -1,12 +1,15 @@
 <section>
     <div>
+        <!-- BATTLE SCREEN -->
         <div class="battle-background">
             <img
                 id="bg"
                 src="assets/images/battle-background.jpeg"
                 [class.darken]="battlePhase === 4"
                 alt="bg"
+                draggable="false"
             />
+            <!-- PLAYER INFO (SPRITE, INFO, DAMAGE TAKEN) -->
             <img
                 id="player-sprite"
                 [class.hidden]="
@@ -20,7 +23,11 @@
                 "
                 [alt]="playerPokemon.name"
             />
-            <div id="player-info" [class.hidden]="battlePhase === 4">
+            <div
+                id="player-info"
+                [class.hidden]="battlePhase === 4"
+                [class.damaged]="enemyPokemon.status.startAttack"
+            >
                 <strong>{{ playerPokemon.name }}</strong>
                 <div>
                     <div class="hp-bar">
@@ -46,6 +53,7 @@
                 <div>-{{ enemyPokemon.status.damageDealt }} HP</div>
                 <div>{{ enemyPokemon.status.currentAttackEffectiveness }}</div>
             </div>
+            <!-- ENEMY INFO (SPRITE, INFO, DAMAGE TAKEN) -->
             <img
                 id="enemy-sprite"
                 [class.hidden]="
@@ -59,7 +67,11 @@
                 "
                 [alt]="enemyPokemon.name"
             />
-            <div id="enemy-info" [class.hidden]="battlePhase === 4">
+            <div
+                id="enemy-info"
+                [class.hidden]="battlePhase === 4"
+                [class.damaged]="playerPokemon.status.startAttack"
+            >
                 <strong>{{ enemyPokemon.name }}</strong>
                 <div>
                     <div class="hp-bar">
@@ -85,6 +97,7 @@
                 <div>-{{ playerPokemon.status.damageDealt }} HP</div>
                 <div>{{ playerPokemon.status.currentAttackEffectiveness }}</div>
             </div>
+            <!-- WIN/LOSE MODALS -->
             <div
                 *ngIf="!playerPokemon.status.isAlive"
                 id="modal-loser"
@@ -109,12 +122,16 @@
             >
                 <div>
                     <strong>YOU WON!</strong>
-                    <div>
+                    <div *ngIf="playerTrophyAmount !== 5">
                         <img
                             id="modal-trophy"
                             src="assets/images/trophy.png"
                             alt="trophy"
                         />
+                    </div>
+                    <div id="unlocked-shiny" *ngIf="playerTrophyAmount === 5">
+                        <img [src]="playerPokemon.sprites.front_shiny" alt="" />
+                        <div>Unlocked Shiny {{ playerPokemon.name }}!</div>
                     </div>
 
                     <a routerLink="/pokemon/{{ playerPokemon.id }}">
@@ -124,6 +141,7 @@
                 </div>
             </div>
         </div>
+        <!-- BATTLE MENU -->
         <div class="battle-menu">
             <div
                 *ngIf="battlePhase === 3 || battlePhase === 4"
