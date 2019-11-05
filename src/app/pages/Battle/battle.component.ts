@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ɵConsole } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { TrophyService } from "./../../services/trophy.service";
@@ -54,12 +54,6 @@ export class BattleComponent implements OnInit {
     ngOnInit() {
         // get data passed as state on route redirection
         this.getFightersData();
-
-        // set initial battle phase and initial text
-        this.setInitialState();
-
-        // start battle music
-        this.playAudio();
     }
 
     getFightersData() {
@@ -74,12 +68,17 @@ export class BattleComponent implements OnInit {
                 history.state.enemyPokemon
             );
 
+            // set initial battle phase and initial text
             this.setInitialState();
+
+            // start battle music
+            this.playAudio();
         } else {
             this.router.navigateByUrl("/404");
             // test:
             //this.playerPokemon = this.formatPokemonData(mockPokemon);
             //this.enemyPokemon = this.formatPokemonData(mockPokemon2);
+            //this.setInitialState();
         }
     }
 
@@ -92,7 +91,9 @@ export class BattleComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        this.battleMusic.pause();
+        if (this.battleMusic) {
+            this.battleMusic.pause();
+        }
     }
 
     // ---------------------------- //
@@ -263,7 +264,7 @@ export class BattleComponent implements OnInit {
         console.log(`--------------
 ${attacker.name} attacked ${defender.name} and dealt ${damage} damage.
 --------------
-* MOVE POWER: ${move.power * 0.5}
+* MOVE POWER: ${move.power * 0.75}
 * ATTACK x DEFENSE: ${attacker.stats.attack} / ${
             defender.stats.defense
         } = ${attacker.stats.attack / defender.stats.defense}
@@ -378,7 +379,7 @@ ${attacker.name} attacked ${defender.name} and dealt ${damage} damage.
 
     playAudio() {
         this.battleMusic = new Audio();
-        this.battleMusic.src = "../../../assets/sounds/battle-song.ogg";
+        this.battleMusic.src = "assets/sounds/battle-song.ogg";
         this.battleMusic.load();
         this.battleMusic.play();
     }

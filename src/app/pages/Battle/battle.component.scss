@@ -11,6 +11,22 @@ section {
         padding: 2rem;
         margin: 1rem;
 
+        #mobile-warning {
+            display: none;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 0.4rem;
+
+            p {
+                text-align: center;
+            }
+
+            @media (max-width: 450px) {
+                display: block;
+            }
+        }
+
         // BATTLE SCREEN LAYOUT
         .battle-background {
             position: relative;
@@ -217,6 +233,7 @@ section {
                     > div {
                         display: flex;
                         flex-direction: column;
+                        align-items: center;
 
                         a {
                             margin-top: 0.7rem;
