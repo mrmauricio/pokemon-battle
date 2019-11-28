@@ -3,18 +3,18 @@ import { PokemonPreview } from "./pokemon";
 export class MainPageSection {
     id: number;
     title: Title;
-    pokemonList: (PokemonPreview)[];
+    pokemonList: PokemonPreview[];
     isLoading: boolean;
     error: boolean;
     buttonList: ButtonList;
 }
 
-class Title {
+export class Title {
     name: string;
     icon: Object;
 }
 
-class ButtonList {
+export class ButtonList {
     buttons: Button[];
     isLoading: boolean;
 }

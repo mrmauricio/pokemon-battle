@@ -11,7 +11,6 @@ describe("TrophyService", () => {
     });
 
     it("should be created", () => {
-        const service: TrophyService = TestBed.get(TrophyService);
         expect(service).toBeTruthy();
     });
 });

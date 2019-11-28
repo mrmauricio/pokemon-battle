@@ -21,7 +21,7 @@ export class Fighter {
     status: BattleStatus;
 }
 
-class BattleStatus {
+export class BattleStatus {
     startAttack: boolean;
     currentAttackEffectiveness: string;
     damageDealt: number;
