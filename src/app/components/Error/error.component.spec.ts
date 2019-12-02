@@ -1,26 +1,30 @@
-/*import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { ErrorComponent } from "./error.component";
 
-import { ErrorComponent } from './error.component';
+describe("-------------- (component) ErrorComponent --------------", () => {
+    let fixture: ComponentFixture<ErrorComponent>;
 
-describe('ErrorComponent', () => {
-  let component: ErrorComponent;
-  let fixture: ComponentFixture<ErrorComponent>;
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [ErrorComponent],
+            imports: [FontAwesomeModule]
+        });
+        fixture = TestBed.createComponent(ErrorComponent);
+        fixture.detectChanges();
+    });
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ErrorComponent ]
-    })
-    .compileComponents();
-  }));
+    describe(":", () => {
+        it("should render a div with a warning", () => {
+            expect(fixture.nativeElement.querySelector("div")).toBeTruthy();
+        });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ErrorComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        it("should contain an anchor to the api url", () => {
+            let href = fixture.nativeElement
+                .querySelector("a")
+                .getAttribute("href");
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+            expect(href).toContain("https://pokeapi.co/");
+        });
+    });
 });
-*/
