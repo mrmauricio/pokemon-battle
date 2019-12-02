@@ -1,25 +1,30 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { HeaderComponent } from "./header.component";
 
-import { HeaderComponent } from './header.component';
+describe("-------------- (component) HeaderComponent --------------", () => {
+    let fixture: ComponentFixture<HeaderComponent>;
 
-describe('HeaderComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [HeaderComponent],
+            imports: [FontAwesomeModule]
+        });
+        fixture = TestBed.createComponent(HeaderComponent);
+        fixture.detectChanges();
+    });
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
-    })
-    .compileComponents();
-  }));
+    describe(":", () => {
+        it("should render header", () => {
+            expect(fixture.nativeElement.querySelector("header")).toBeTruthy();
+        });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(HeaderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        it("should contain an anchor to home page", () => {
+            let href = fixture.nativeElement
+                .querySelector("a")
+                .getAttribute("routerLink");
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+            expect(href).toBe("");
+        });
+    });
 });
