@@ -17,9 +17,9 @@ export class PokemonService {
     // GET POKEMON PREVIEW          //
     // ---------------------------- //
 
-    async getPokemonByIdList(idArray: number[]) {
+    async getPokemonPreviewByIdList(idArray: number[]) {
         const pokeArray = await Promise.all(
-            idArray.map(async (id) => await this.getPokemonPreviewById(id))
+            idArray.map(async id => await this.getPokemonPreviewById(id))
         );
 
         return pokeArray;
@@ -35,7 +35,7 @@ export class PokemonService {
             sprite: data.sprites.front_default,
             spriteShiny: data.sprites.front_shiny,
             name: data.name,
-            types: data.types.map((t) => t.type.name).reverse()
+            types: data.types.map(t => t.type.name).reverse()
         };
 
         //console.log(pokemonPreview);
@@ -60,7 +60,7 @@ export class PokemonService {
             statArray = this.formatStats(data.stats);
 
             // set pokemon moves
-            let { movesId } = movesIdList.find((item) => item.pokemonId === id);
+            let { movesId } = movesIdList.find(item => item.pokemonId === id);
 
             moveArray = await this.getMoveByIdList(movesId);
         }
@@ -75,8 +75,8 @@ export class PokemonService {
                 artwork: `https://img.pokemondb.net/artwork/large/${data.name}.jpg`
             },
             name: data.name,
-            types: data.types.map((t) => t.type.name).reverse(),
-            abilities: data.abilities.map((a) => a.ability.name),
+            types: data.types.map(t => t.type.name).reverse(),
+            abilities: data.abilities.map(a => a.ability.name),
             height: data.height / 10,
             moves: moveArray,
             stats: statArray
@@ -87,7 +87,7 @@ export class PokemonService {
 
     async getMoveByIdList(idArray: number[]) {
         const moveArray = await Promise.all(
-            idArray.map(async (id) => await this.getMoveById(id))
+            idArray.map(async id => await this.getMoveById(id))
         );
 
         return moveArray;
@@ -99,7 +99,7 @@ export class PokemonService {
             .toPromise();
 
         const text = data.flavor_text_entries.find(
-            (item) => item.language.name === "en"
+            item => item.language.name === "en"
         );
 
         const move: Move = {

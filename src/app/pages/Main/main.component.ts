@@ -21,7 +21,7 @@ import { fightersIdList } from "../../utils/fightersIdList";
 export class MainComponent implements OnInit {
     // initial IDs to fetch
     fightersIdList = fightersIdList;
-    pokedexList: number[] = [...Array(12).keys()].map((id) => id + 1);
+    pokedexList: number[] = [...Array(12).keys()].map(id => id + 1);
 
     trophyList;
 
@@ -106,7 +106,7 @@ export class MainComponent implements OnInit {
         section.isLoading = true;
 
         try {
-            let data = await this.pokemonService.getPokemonByIdList(
+            let data = await this.pokemonService.getPokemonPreviewByIdList(
                 fightersIdList
             );
 
@@ -135,7 +135,7 @@ export class MainComponent implements OnInit {
 
         let newPokedexList: number[] = [...Array(12).keys()].map(
             // plus 1 because it starts on 0
-            (id) => id + lastPokemonId + 1
+            id => id + lastPokemonId + 1
         );
 
         let data = await this.fetchPokemonByIdList(
@@ -154,7 +154,7 @@ export class MainComponent implements OnInit {
         if (onlyFighters) {
             let section = this.getSectionById(sectionId);
 
-            let idList = section.pokemonList.map((pokemon) => pokemon.id);
+            let idList = section.pokemonList.map(pokemon => pokemon.id);
 
             randomPokemonId = idList[Math.floor(Math.random() * idList.length)];
         } else {
@@ -173,10 +173,10 @@ export class MainComponent implements OnInit {
     }
 
     getButtonById(id: number) {
-        return this.buttons.find((button) => button.id === id);
+        return this.buttons.find(button => button.id === id);
     }
 
     getSectionById(id: number) {
-        return this.sections.find((section) => section.id === id);
+        return this.sections.find(section => section.id === id);
     }
 }

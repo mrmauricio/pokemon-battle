@@ -5,7 +5,7 @@ import {
     Button
 } from "./main-page-section";
 
-describe("(class) Main Section Classes", () => {
+describe("-------------- (class) Main Section Classes --------------", () => {
     describe(":", () => {
         it("should be possible to create an instance of each class", () => {
             const instances = [

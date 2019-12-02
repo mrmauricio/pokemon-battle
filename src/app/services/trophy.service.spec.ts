@@ -4,7 +4,7 @@ import { TrophyService } from "./trophy.service";
 
 import { fightersIdList } from "./../utils/fightersIdList";
 
-describe("(service) TrophyService", () => {
+describe("-------------- (service) TrophyService --------------", () => {
     let service: TrophyService;
     let store, emptyTrophyList;
 

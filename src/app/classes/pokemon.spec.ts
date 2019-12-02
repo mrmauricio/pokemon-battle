@@ -7,7 +7,7 @@ import {
     MoveList
 } from "./pokemon";
 
-describe("(class) Pokémon Classes", () => {
+describe("-------------- (class) Pokémon Classes --------------", () => {
     describe(":", () => {
         it("should be possible to create an instance of each class", () => {
             const instances = [

@@ -1,6 +1,6 @@
 import { Text, Colors, Fighter, BattleStatus } from "./battle";
 
-describe("(class) Battle Classes", () => {
+describe("-------------- (class) Battle Classes --------------", () => {
     describe(":", () => {
         it("should be possible to create an instance of each class", () => {
             const instances = [
