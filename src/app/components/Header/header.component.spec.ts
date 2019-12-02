@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { HeaderComponent } from "./header.component";
 
 describe("-------------- (component) HeaderComponent --------------", () => {
@@ -7,8 +6,7 @@ describe("-------------- (component) HeaderComponent --------------", () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [HeaderComponent],
-            imports: [FontAwesomeModule]
+            declarations: [HeaderComponent]
         });
         fixture = TestBed.createComponent(HeaderComponent);
         fixture.detectChanges();
