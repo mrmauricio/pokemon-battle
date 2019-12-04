@@ -5,13 +5,13 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 import { NotFoundComponent } from "./not-found.component";
 
-describe("-------------- (component) NotFoundComponent --------------", () => {
+describe("-------------- (page) NotFound --------------", () => {
     let fixture: ComponentFixture<NotFoundComponent>;
-    let mockRouter = {
-        navigate: jasmine.createSpy("navigate")
-    };
+    let mockRouter;
 
     beforeEach(() => {
+        mockRouter = jasmine.createSpyObj(["navigate"]);
+
         TestBed.configureTestingModule({
             declarations: [NotFoundComponent],
             imports: [FontAwesomeModule],

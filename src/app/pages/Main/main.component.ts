@@ -97,9 +97,9 @@ export class MainComponent implements OnInit {
     }
 
     async fetchPokemonByIdList(
-        fightersIdList: number[],
+        idList: number[],
         sectionId: number,
-        returnData: boolean
+        shouldReturn: boolean
     ) {
         let section = this.getSectionById(sectionId);
 
@@ -107,19 +107,19 @@ export class MainComponent implements OnInit {
 
         try {
             let data = await this.pokemonService.getPokemonPreviewByIdList(
-                fightersIdList
+                idList
             );
 
             section.isLoading = false;
             section.error = false;
 
-            if (returnData) {
+            if (shouldReturn) {
                 return data;
             }
 
             section.pokemonList = data;
         } catch (e) {
-            console.log(e);
+            //console.log(e);
             section.isLoading = false;
             section.error = true;
         }
