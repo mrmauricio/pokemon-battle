@@ -1,0 +1,127 @@
+➡️ padrão teste simples:
+
+header.component.spec.ts
+
+------------------------------------
+➡️ routerLink e navigate:
+
+mockRouter = jasmine.createSpyObj(["navigate"]);
+
+TestBed.configureTestingModule({
+	// tambem é possivel usar o router testing module	
+	//imports: [RouterTestingModule]
+	providers: [{ provide: Router, useValue: mockRouter }]
+});
+
+👉️ verificar se a chamada foi a esperada
+expect(mockRouter.navigate).toHaveBeenCalledWith(["route"]);
+👉️ verificar a ultima chamada feita
+mockRouter.navigate.calls.mostRecent().args[0];
+------------------------------------
+➡️ mocking child components:
+
+import { MockComponent } from "ng-mocks";
+
+        TestBed.configureTestingModule({
+            declarations: [
+                MainComponent,
+                MockComponent(LoadingComponent)
+            ],
+	});
+------------------------------------
+➡️ exemplos de pegar elemento:
+
+
+📖️ nativeElement - retorna o elemento DOM, o HTML em si.
+
+👉️ buscar por tag dentro de outra tag:
+fixture.nativeElement.querySelector("section h2")
+
+👉️ buscar o texto dentro do elemento:
+fixture.nativeElement.querySelector("h2").textContent;
+
+	--- or ---
+
+📖️ debugElement  - classe do angular que contém referências e métodos para investigar melhor
+
+👉️ buscar por tag dentro de outra tag:
+fixture.debugElement.query(By.css("section h2"))
+
+👉️ buscar por classe dentro de outra classe:
+fixture.debugElement.query(By.css(".classedopai .classedofilho"))
+
+👉️ buscar por elemento com duas classes:
+fixture.debugElement.query(By.css(".classe1.classe2"))
+
+👉️ buscar por atributo:
+fixture.debugElement.query(By.css('[attribute]'));
+
+👉️ buscar por elemento com atributo:
+fixture.debugElement.query(By.css('input[type=radio]')) 
+
+BUSCAR VARIOS: querySelectorAll() or queryAll()
+
+------------------------------------
+➡️ mock do LocalStorage:
+
+spyOn(localStorage, "getItem").and.callFake((key: string): string => {
+    return store[key] || null;
+});
+spyOn(localStorage, "setItem").and.callFake(
+    (key: string, value: string) => {
+        store[key] = value;
+    }
+);
+
+------------------------------------
+➡️ testar requisições http:
+
+👉️ importar o http testing module:
+
+TestBed.configureTestingModule({
+	providers: [PokemonService],
+        imports: [HttpClientTestingModule]
+});
+
+httpTestingController = TestBed.get(HttpTestingController);
+
+👉️ utilizar fakeAsync() e tick() caso use then ou Promise.resolve
+
+👉️ aguardar a requisição, retornar valor mockado e no fim verificar se 
+há mais requisições indesejadas com o verify
+
+const req = httpTestingController.expectOne(
+	"https://pokeapi.co/api/v2/pokemon/6"
+);
+
+req.flush(pokemon);
+
+httpTestingController.verify();
+
+------------------------------------
+➡️ spy methods:
+
+
+👉️ spy um método do componente:
+
+spyOn(fixture.componentInstance, "formatStats").and.returnValue({
+	attack: 109,
+});
+
+👉️ criar um mock de um serviço e fazer com que retorne algo:
+
+mockPokemonService = jasmine.createSpyObj(["getPokemonDataById"]);
+
+mockPokemonService.getPokemonDataById.and.returnValue(
+	Promise.resolve(mockPokemonData)
+);
+
+------------------------------------
+➡️ fakeAsync e tick:
+
+------------------------------------
+➡️ retornar erro na hora da chamada no mock:
+
+mockPokemonService.getPokemonPreviewByIdList.and.throwError(
+	"error"
+);
