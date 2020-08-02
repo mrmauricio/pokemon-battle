@@ -37,6 +37,22 @@ _Poké Battle Simulator_ is a web application that allows the user to battle aga
 -   #150 Mewtwo
 -   #151 Mew
 
+### Mechanics (PT-BR)
+
+- Não há ATK/SP. ATK e DEF/SP. DEF e nem diferenciação por ataques físicos/ ataques especiais; foi considerado o stat mais forte entre ambos para cada pokémon;
+- Os multipliers de tipo foram mantidos: super effective, ultra effective, not very effective e does not affect;
+- O multiplier STAB (Same type attack bonus) também foi mantido;
+- Foram escolhidos 4 ataques de tipos distintos com maior poder de ataque para cada pokémon (considerando os ataques possíveis de serem aprendidos). Não há side-effects para os ataques;
+- O stat HP foi tratado de maneira diferente para que as diferenças entre a vida dos pokémon não sejam muitas;
+- O comportamento do adversário em relação a escolha dos ataques está aleatório;
+
+### TO-DO: (PT-BR)
+
+- Adaptar a tela de batalha p/ dipositivos móveis;
+- Adicionar novos fighters;
+- Adicionar novos modos de batalha além de oponente aleatório;
+- Adicionar níveis de dificuldade para os adversários;
+
 ## Technologies
 
 -   Angular w/ TypeScript for front-end;
