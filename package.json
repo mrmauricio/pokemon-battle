@@ -8,7 +8,9 @@
         "test": "ng test --source-map=true --code-coverage",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "v": "node -v"
+        "v": "node -v",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "private": true,
     "dependencies": {
@@ -40,6 +42,7 @@
         "@types/jasminewd2": "~2.0.3",
         "@types/node": "~8.9.4",
         "codelyzer": "^5.0.0",
+        "gh-pages": "^6.1.1",
         "jasmine-core": "~3.4.0",
         "jasmine-spec-reporter": "~4.2.1",
         "karma": "~4.1.0",
