@@ -10,7 +10,7 @@
         "e2e": "ng e2e",
         "v": "node -v",
         "predeploy": "npm run build",
-        "deploy": "gh-pages -d build"
+        "deploy": "gh-pages -d dist"
     },
     "private": true,
     "dependencies": {
@@ -27,7 +27,6 @@
         "@fortawesome/free-brands-svg-icons": "^5.11.2",
         "@fortawesome/free-regular-svg-icons": "^5.11.2",
         "@fortawesome/free-solid-svg-icons": "^5.11.2",
-        "angular-cli-ghpages": "^0.6.0",
         "node": "14.15.1",
         "rxjs": "~6.4.0",
         "tslib": "^1.10.0",
@@ -41,6 +40,7 @@
         "@types/jasmine": "~3.3.8",
         "@types/jasminewd2": "~2.0.3",
         "@types/node": "~8.9.4",
+        "angular-cli-ghpages": "^0.6.2",
         "codelyzer": "^5.0.0",
         "gh-pages": "^6.1.1",
         "jasmine-core": "~3.4.0",
