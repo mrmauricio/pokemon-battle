@@ -10,21 +10,29 @@ The app can be seen in action **[here](https://mrmauricio.github.io/pokemon-batt
 
 _Poké Battle Simulator_ is a web application that allows the user to battle against the computer and discover information about first gen pokémons. There are currently 24 pokémon available as fighters and 151 on pokédex.
 
-### Mechanics (PT-BR)
+### Mechanics 
 
-- Não há ATK/SP. ATK e DEF/SP. DEF e nem diferenciação por ataques físicos/ ataques especiais; foi considerado o stat mais forte entre ambos para cada pokémon;
-- Os multipliers de tipo foram mantidos: super effective, ultra effective, not very effective e does not affect;
-- O multiplier STAB (Same type attack bonus) também foi mantido;
-- Foram escolhidos 4 ataques de tipos distintos com maior poder de ataque para cada pokémon (considerando os ataques possíveis de serem aprendidos). Não há side-effects para os ataques;
-- O stat HP foi tratado de maneira diferente para que as diferenças entre a vida dos pokémon não sejam muitas;
-- O comportamento do adversário em relação a escolha dos ataques está aleatório;
+- There is no distinction between ATK/SP. ATK and DEF/SP. DEF nor differentiation between physical attacks and special attacks; the strongest stat between both for each Pokémon was considered;
+ 
+- Type multipliers were kept: super effective, ultra effective, not very effective, and does not affect;
+ 
+- The STAB (Same type attack bonus) multiplier was also maintained;
+ 
+- Four attacks of different types with the highest attack power were chosen for each Pokémon (considering the possible moves they can learn). There are no side-effects for the attacks;
+ 
+- The HP stat was handled differently to minimize the differences in Pokémon health;
+ 
+- The opponent's behavior in terms of attack selection is random;
 
-### TO-DO List (PT-BR)
+### TO-DO List 
 
-- Adaptar a tela de batalha p/ dipositivos móveis;
-- Adicionar novos fighters;
-- Adicionar novos modos de batalha além de oponente aleatório;
-- Adicionar níveis de dificuldade para os adversários;
+- Adapt the battle screen for mobile devices;
+
+- Add new fighters;
+
+- Add new battle modes besides random opponent;
+
+- Add difficulty levels for the opponents;
 
 ### Fighter List
 
